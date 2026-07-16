@@ -1,0 +1,2258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Circuit Navigator — A Student's Roadmap to Electronics & Robotics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   RESET & VARIABLES
+   ═══════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #F8FAFC;
+  --surface: #FFFFFF;
+  --surface-alt: #F1F5F9;
+  --border: #E2E8F0;
+  --border-strong: #CBD5E1;
+  --text: #1E293B;
+  --text-secondary: #475569;
+  --muted: #64748B;
+  --primary: #1E40AF;
+  --primary-light: #3B82F6;
+  --primary-bg: #EFF6FF;
+  --accent: #7C3AED;
+  --accent-bg: #F5F3FF;
+  --success: #059669;
+  --success-bg: #ECFDF5;
+  --warning: #D97706;
+  --warning-bg: #FFFBEB;
+  --danger: #DC2626;
+  --danger-bg: #FEF2F2;
+  --info: #0891B2;
+  --info-bg: #ECFEFF;
+  --code-bg: #F1F5F9;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+  --radius: 12px;
+  --radius-sm: 8px;
+  --radius-xs: 6px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ═══════════════════════════════════════════
+   LAYOUT
+   ═══════════════════════════════════════════ */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.wide-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ═══════════════════════════════════════════
+   HERO SECTION
+   ═══════════════════════════════════════════ */
+.hero {
+  background: linear-gradient(135deg, #1E293B 0%, #1E3A5F 50%, #1E40AF 100%);
+  color: white;
+  padding: 80px 24px 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 30% 70%, rgba(59,130,246,0.15) 0%, transparent 50%),
+              radial-gradient(circle at 70% 30%, rgba(124,58,237,0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.hero-content { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+
+.hero-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+
+.hero h1 span {
+  background: linear-gradient(135deg, #60A5FA, #A78BFA);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-subtitle {
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.6;
+  max-width: 560px;
+  margin: 0 auto 32px;
+}
+
+.hero-meta {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.6);
+}
+
+.hero-meta span { display: flex; align-items: center; gap: 6px; }
+
+/* ═══════════════════════════════════════════
+   TABLE OF CONTENTS
+   ═══════════════════════════════════════════ */
+.toc-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+  margin: 40px auto;
+  max-width: 900px;
+  box-shadow: var(--shadow);
+}
+
+.toc-section h2 {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  color: var(--primary);
+}
+
+.toc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 8px;
+}
+
+.toc-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: var(--radius-xs);
+  text-decoration: none;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  transition: all 0.15s ease;
+}
+
+.toc-item:hover {
+  background: var(--primary-bg);
+  color: var(--primary);
+}
+
+.toc-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: var(--surface-alt);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.toc-item:hover .toc-num {
+  background: var(--primary);
+  color: white;
+}
+
+/* ═══════════════════════════════════════════
+   SECTION STYLES
+   ═══════════════════════════════════════════ */
+.section {
+  margin: 48px auto;
+  max-width: 900px;
+}
+
+.section-header {
+  margin-bottom: 32px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--border);
+}
+
+.section-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--primary);
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.section h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+.section h2 .topic-icon {
+  margin-right: 8px;
+}
+
+.section h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin: 28px 0 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.section h3::before {
+  content: '';
+  display: inline-block;
+  width: 3px;
+  height: 16px;
+  background: var(--primary);
+  border-radius: 2px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.section p {
+  margin-bottom: 12px;
+  color: var(--text-secondary);
+}
+
+.section ul, .section ol {
+  padding-left: 20px;
+  margin-bottom: 12px;
+}
+
+.section li {
+  margin-bottom: 6px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.section li strong { color: var(--text); }
+
+/* ═══════════════════════════════════════════
+   CALLOUT BOXES
+   ═══════════════════════════════════════════ */
+.callout {
+  padding: 16px 20px;
+  border-radius: var(--radius-sm);
+  margin: 20px 0;
+  border-left: 4px solid;
+  font-size: 0.92rem;
+}
+
+.callout-title {
+  font-weight: 600;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.callout p { margin-bottom: 4px; }
+.callout p:last-child { margin-bottom: 0; }
+
+.callout-info { background: var(--info-bg); border-color: var(--info); }
+.callout-info .callout-title { color: var(--info); }
+
+.callout-success { background: var(--success-bg); border-color: var(--success); }
+.callout-success .callout-title { color: var(--success); }
+
+.callout-warning { background: var(--warning-bg); border-color: var(--warning); }
+.callout-warning .callout-title { color: var(--warning); }
+
+.callout-tip { background: var(--primary-bg); border-color: var(--primary); }
+.callout-tip .callout-title { color: var(--primary); }
+
+.callout-danger { background: var(--danger-bg); border-color: var(--danger); }
+.callout-danger .callout-title { color: var(--danger); }
+
+/* ═══════════════════════════════════════════
+   RESOURCE TABLE
+   ═══════════════════════════════════════════ */
+.resource-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  margin: 16px 0;
+  font-size: 0.9rem;
+}
+
+.resource-table th {
+  background: var(--surface-alt);
+  padding: 10px 16px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text);
+  border-bottom: 2px solid var(--border);
+}
+
+.resource-table td {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+
+.resource-table tr:last-child td { border-bottom: none; }
+.resource-table tr:hover td { background: var(--surface-alt); }
+
+.resource-table a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.resource-table a:hover { text-decoration: underline; }
+
+.resource-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.tag-free { background: var(--success-bg); color: var(--success); }
+.tag-docs { background: var(--info-bg); color: var(--info); }
+.tag-course { background: var(--accent-bg); color: var(--accent); }
+.tag-youtube { background: #FEF3C7; color: #92400E; }
+
+/* ═══════════════════════════════════════════
+   PROJECT CARD
+   ═══════════════════════════════════════════ */
+.project-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+  margin: 12px 0;
+}
+
+.project-card-title {
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.project-card p {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 0;
+}
+
+/* ═══════════════════════════════════════════
+   ROADMAP VISUAL
+   ═══════════════════════════════════════════ */
+.roadmap-visual {
+  margin: 48px auto;
+  max-width: 900px;
+}
+
+.roadmap-visual h2 {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+}
+
+.roadmap-visual .subtitle {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-bottom: 32px;
+}
+
+.roadmap-flow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.roadmap-node {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 20px;
+  min-width: 280px;
+  text-align: left;
+  text-decoration: none;
+  color: var(--text);
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.roadmap-node:hover {
+  border-color: var(--primary);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.roadmap-node-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--primary);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.roadmap-node-text {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.roadmap-node-sub {
+  font-weight: 400;
+  font-size: 0.78rem;
+  color: var(--muted);
+  display: block;
+}
+
+.roadmap-connector {
+  width: 2px;
+  height: 20px;
+  background: var(--border-strong);
+}
+
+.roadmap-branch {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  max-width: 700px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.roadmap-branch .roadmap-node {
+  min-width: 200px;
+  flex: 1;
+}
+
+/* ═══════════════════════════════════════════
+   LEARNING TRACKS
+   ═══════════════════════════════════════════ */
+.track-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  margin: 20px 0;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s ease;
+}
+
+.track-card:hover { box-shadow: var(--shadow-md); }
+
+.track-card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.track-card h3::before { display: none; }
+
+.track-card .track-desc {
+  color: var(--muted);
+  font-size: 0.88rem;
+  margin-bottom: 16px;
+}
+
+.track-steps {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.track-step {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--primary-bg);
+  color: var(--primary);
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.track-arrow {
+  color: var(--border-strong);
+  font-size: 0.8rem;
+}
+
+/* ═══════════════════════════════════════════
+   HALL OF FAME GRID
+   ═══════════════════════════════════════════ */
+.hof-category {
+  margin: 28px 0;
+}
+
+.hof-category h3 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--border);
+}
+
+.hof-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.hof-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  text-decoration: none;
+  color: var(--text);
+  transition: all 0.2s ease;
+}
+
+.hof-card:hover {
+  border-color: var(--primary-light);
+  box-shadow: var(--shadow);
+  transform: translateY(-2px);
+}
+
+.hof-card-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--primary);
+  margin-bottom: 4px;
+}
+
+.hof-card-desc {
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.hof-card-tag {
+  margin-top: 8px;
+  font-size: 0.75rem;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ═══════════════════════════════════════════
+   DIVIDER
+   ═══════════════════════════════════════════ */
+.divider {
+  border: none;
+  border-top: 2px solid var(--border);
+  margin: 56px auto;
+  max-width: 900px;
+}
+
+/* ═══════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════ */
+.footer {
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--muted);
+  font-size: 0.85rem;
+  border-top: 1px solid var(--border);
+  margin-top: 64px;
+}
+
+.footer p { margin-bottom: 8px; }
+
+.footer .heart { color: var(--danger); }
+
+/* ═══════════════════════════════════════════
+   TAGS & BADGES
+   ═══════════════════════════════════════════ */
+.level-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.level-beginner { background: #DCFCE7; color: #166534; }
+.level-intermediate { background: #FEF3C7; color: #92400E; }
+.level-advanced { background: #FEE2E2; color: #991B1B; }
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .hero { padding: 60px 20px 40px; }
+  .hero h1 { font-size: 1.8rem; }
+  .hero-meta { flex-direction: column; gap: 8px; }
+  .toc-grid { grid-template-columns: 1fr; }
+  .track-steps { flex-direction: column; align-items: flex-start; }
+  .track-arrow { transform: rotate(90deg); }
+  .hof-grid { grid-template-columns: 1fr; }
+  .roadmap-branch { flex-direction: column; align-items: center; }
+  .resource-table { font-size: 0.82rem; }
+  .resource-table th, .resource-table td { padding: 8px 10px; }
+}
+
+/* ═══════════════════════════════════════════
+   PRINT STYLES
+   ═══════════════════════════════════════════ */
+@media print {
+  body { font-size: 11pt; background: white; }
+  .hero { background: #1E293B !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .roadmap-node, .track-card, .hof-card, .project-card { break-inside: avoid; }
+  .section { page-break-inside: avoid; }
+  a { color: var(--primary) !important; }
+}
+
+/* ═══════════════════════════════════════════
+   LINK STYLES
+   ═══════════════════════════════════════════ */
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Back to top */
+.back-to-top {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: white;
+  border: none;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  z-index: 100;
+  transition: all 0.2s ease;
+  opacity: 0.9;
+}
+.back-to-top:hover { opacity: 1; transform: translateY(-2px); }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     HERO
+     ═══════════════════════════════════════════ -->
+<header class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">Student Technical Roadmap</div>
+    <h1>The <span>Circuit Navigator</span></h1>
+    <p class="hero-subtitle">
+      Whether you want to build robots, design circuit boards, program microcontrollers, or just figure out how your phone actually works — this roadmap is for you. We've been where you are. We know the overwhelm of having too many resources and not enough direction. So we made this.
+    </p>
+    <div class="hero-meta">
+      <span>⚡ 19 Topics</span>
+      <span>🔗 100+ Curated Resources</span>
+      <span>🛠️ Beginner Projects</span>
+      <span>🛤️ 5 Career Tracks</span>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════
+     TABLE OF CONTENTS
+     ═══════════════════════════════════════════ -->
+<div class="wide-container">
+  <nav class="toc-section" id="toc">
+    <h2>📑 Contents</h2>
+    <div class="toc-grid">
+      <a href="#topic-1" class="toc-item"><span class="toc-num">1</span> Analog Electronics</a>
+      <a href="#topic-2" class="toc-item"><span class="toc-num">2</span> Digital Electronics</a>
+      <a href="#topic-3" class="toc-item"><span class="toc-num">3</span> Programming in C</a>
+      <a href="#topic-4" class="toc-item"><span class="toc-num">4</span> Embedded Systems</a>
+      <a href="#topic-5" class="toc-item"><span class="toc-num">5</span> STM32</a>
+      <a href="#topic-6" class="toc-item"><span class="toc-num">6</span> ESP32 / IoT</a>
+      <a href="#topic-7" class="toc-item"><span class="toc-num">7</span> Communication Protocols</a>
+      <a href="#topic-8" class="toc-item"><span class="toc-num">8</span> Sensors</a>
+      <a href="#topic-9" class="toc-item"><span class="toc-num">9</span> Power Electronics</a>
+      <a href="#topic-10" class="toc-item"><span class="toc-num">10</span> Motor Control</a>
+      <a href="#topic-11" class="toc-item"><span class="toc-num">11</span> PCB Design</a>
+      <a href="#topic-12" class="toc-item"><span class="toc-num">12</span> Control Systems</a>
+      <a href="#topic-13" class="toc-item"><span class="toc-num">13</span> Robotics</a>
+      <a href="#topic-14" class="toc-item"><span class="toc-num">14</span> ROS 2</a>
+      <a href="#topic-15" class="toc-item"><span class="toc-num">15</span> Computer Vision</a>
+      <a href="#topic-16" class="toc-item"><span class="toc-num">16</span> Embedded Linux</a>
+      <a href="#topic-17" class="toc-item"><span class="toc-num">17</span> RTOS</a>
+      <a href="#topic-18" class="toc-item"><span class="toc-num">18</span> FPGA</a>
+      <a href="#topic-19" class="toc-item"><span class="toc-num">19</span> AI for Robotics</a>
+      <a href="#tracks" class="toc-item"><span class="toc-num">→</span> Learning Tracks</a>
+      <a href="#hall-of-fame" class="toc-item"><span class="toc-num">★</span> Hall of Fame</a>
+      <a href="#additional" class="toc-item"><span class="toc-num">+</span> Additional Resources</a>
+    </div>
+  </nav>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     ROADMAP VISUAL
+     ═══════════════════════════════════════════ -->
+<div class="wide-container">
+  <div class="roadmap-visual" id="roadmap-overview">
+    <h2>The Roadmap at a Glance</h2>
+    <p class="subtitle">Start from the top. Branch out where your interest takes you.</p>
+    <div class="roadmap-flow">
+      <a href="#topic-1" class="roadmap-node">
+        <span class="roadmap-node-num">1</span>
+        <span class="roadmap-node-text">Analog Electronics<span class="roadmap-node-sub">The foundation of everything</span></span>
+      </a>
+      <div class="roadmap-connector"></div>
+      <a href="#topic-2" class="roadmap-node">
+        <span class="roadmap-node-num">2</span>
+        <span class="roadmap-node-text">Digital Electronics<span class="roadmap-node-sub">Binary logic & gates</span></span>
+      </a>
+      <div class="roadmap-connector"></div>
+      <a href="#topic-3" class="roadmap-node">
+        <span class="roadmap-node-num">3</span>
+        <span class="roadmap-node-text">Programming in C<span class="roadmap-node-sub">The language of hardware</span></span>
+      </a>
+      <div class="roadmap-connector"></div>
+      <a href="#topic-4" class="roadmap-node">
+        <span class="roadmap-node-num">4</span>
+        <span class="roadmap-node-text">Embedded Systems<span class="roadmap-node-sub">Computing inside things</span></span>
+      </a>
+      <div class="roadmap-connector"></div>
+      <a href="#topic-5" class="roadmap-node">
+        <span class="roadmap-node-num">5</span>
+        <span class="roadmap-node-text">STM32<span class="roadmap-node-sub">Industry-standard ARM microcontrollers</span></span>
+      </a>
+      <div class="roadmap-connector"></div>
+
+      <div class="roadmap-branch">
+        <a href="#topic-6" class="roadmap-node">
+          <span class="roadmap-node-num">6</span>
+          <span class="roadmap-node-text">ESP32 / IoT<span class="roadmap-node-sub">Connected devices</span></span>
+        </a>
+        <a href="#topic-7" class="roadmap-node">
+          <span class="roadmap-node-num">7</span>
+          <span class="roadmap-node-text">Protocols<span class="roadmap-node-sub">UART, SPI, I²C, CAN</span></span>
+        </a>
+      </div>
+
+      <div class="roadmap-connector"></div>
+      <div class="roadmap-branch">
+        <a href="#topic-8" class="roadmap-node">
+          <span class="roadmap-node-num">8</span>
+          <span class="roadmap-node-text">Sensors<span class="roadmap-node-sub">How machines perceive</span></span>
+        </a>
+        <a href="#topic-9" class="roadmap-node">
+          <span class="roadmap-node-num">9</span>
+          <span class="roadmap-node-text">Power Electronics<span class="roadmap-node-sub">Voltage regulation & drivers</span></span>
+        </a>
+      </div>
+
+      <div class="roadmap-connector"></div>
+      <div class="roadmap-branch">
+        <a href="#topic-10" class="roadmap-node">
+          <span class="roadmap-node-num">10</span>
+          <span class="roadmap-node-text">Motor Control<span class="roadmap-node-sub">DC, stepper, servo, BLDC</span></span>
+        </a>
+        <a href="#topic-11" class="roadmap-node">
+          <span class="roadmap-node-num">11</span>
+          <span class="roadmap-node-text">PCB Design<span class="roadmap-node-sub">From schematic to board</span></span>
+        </a>
+      </div>
+
+      <div class="roadmap-connector"></div>
+      <a href="#topic-12" class="roadmap-node">
+        <span class="roadmap-node-num">12</span>
+        <span class="roadmap-node-text">Control Systems<span class="roadmap-node-sub">PID, feedback loops, stability</span></span>
+      </a>
+      <div class="roadmap-connector"></div>
+      <a href="#topic-13" class="roadmap-node">
+        <span class="roadmap-node-num">13</span>
+        <span class="roadmap-node-text">Robotics<span class="roadmap-node-sub">Hardware meets intelligence</span></span>
+      </a>
+      <div class="roadmap-connector"></div>
+
+      <div class="roadmap-branch">
+        <a href="#topic-14" class="roadmap-node">
+          <span class="roadmap-node-num">14</span>
+          <span class="roadmap-node-text">ROS 2<span class="roadmap-node-sub">Robot middleware</span></span>
+        </a>
+        <a href="#topic-15" class="roadmap-node">
+          <span class="roadmap-node-num">15</span>
+          <span class="roadmap-node-text">Computer Vision<span class="roadmap-node-sub">Making machines see</span></span>
+        </a>
+      </div>
+
+      <div class="roadmap-connector"></div>
+
+      <div class="roadmap-branch">
+        <a href="#topic-16" class="roadmap-node">
+          <span class="roadmap-node-num">16</span>
+          <span class="roadmap-node-text">Embedded Linux<span class="roadmap-node-sub">Full OS on small boards</span></span>
+        </a>
+        <a href="#topic-17" class="roadmap-node">
+          <span class="roadmap-node-num">17</span>
+          <span class="roadmap-node-text">RTOS<span class="roadmap-node-sub">Real-time guarantees</span></span>
+        </a>
+      </div>
+
+      <div class="roadmap-connector"></div>
+      <div class="roadmap-branch">
+        <a href="#topic-18" class="roadmap-node">
+          <span class="roadmap-node-num">18</span>
+          <span class="roadmap-node-text">FPGA<span class="roadmap-node-sub">Hardware programming</span></span>
+        </a>
+        <a href="#topic-19" class="roadmap-node">
+          <span class="roadmap-node-num">19</span>
+          <span class="roadmap-node-text">AI for Robotics<span class="roadmap-node-sub">ML at the edge</span></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════
+     TOPIC 1 — ANALOG ELECTRONICS
+     ═══════════════════════════════════════════ -->
+<div class="container">
+  <div class="section" id="topic-1">
+    <div class="section-header">
+      <div class="section-number">1</div>
+      <h2><span class="topic-icon">⚡</span>Analog Electronics</h2>
+      <span class="level-badge level-beginner">Beginner</span>
+    </div>
+
+    <h3>What is it?</h3>
+    <p>Analog electronics deals with signals that vary continuously — voltage and current that sweep smoothly rather than snapping between 0 and 1. Think of the sound wave from a guitar pickup, the gradual change in a temperature sensor's voltage, or the way a radio signal looks on an oscilloscope.</p>
+    <p>This is the bedrock of every electronic system. Even the most advanced digital芯片 still has analog front-ends, power regulators, and signal conditioning circuits. If you understand analog, you understand what's actually happening at the wire level.</p>
+    <p>Key concepts include resistive circuits, capacitors and inductors, diodes, transistors (BJT and MOSFET), operational amplifiers (op-amps), filters, and basic power supply design.</p>
+
+    <h3>Why learn it?</h3>
+    <ul>
+      <li><strong>Sensor interfacing</strong> — almost every sensor outputs an analog signal that needs conditioning before a microcontroller can read it.</li>
+      <li><strong>Audio electronics</strong> — amplifiers, mixers, and equalizers are pure analog circuits.</li>
+      <li><strong>Power supplies</strong> — every device needs regulated DC power; analog design makes that happen.</li>
+      <li><strong>Communication systems</strong> — RF circuits, modulators, and receivers are analog at their core.</li>
+      <li><strong>Medical devices</strong> — ECG, EEG, and pulse oximeters all start with analog signal conditioning.</li>
+    </ul>
+
+    <h3>Prerequisites</h3>
+    <ul>
+      <li>Basic understanding of voltage, current, resistance (Ohm's Law)</li>
+      <li>KCL and KVL</li>
+      <li>No programming needed yet</li>
+    </ul>
+
+    <h3>Recommended Resources</h3>
+    <table class="resource-table">
+      <thead><tr><th>Resource</th><th>Type</th><th>Best For</th></tr></thead>
+      <tbody>
+        <tr><td><a href="https://www.youtube.com/@AllAboutElectronics" target="_blank">All About Electronics</a></td><td><span class="resource-tag tag-youtube">YouTube</span></td><td>Clear, structured theory explanations — op-amps, filters, transistors</td></tr>
+        <tr><td><a href="https://www.youtube.com/@phils lab" target="_blank">Phil's Lab</a></td><td><span class="resource-tag tag-youtube">YouTube</span></td><td>Practical analog design, power supplies, op-amp circuits</td></tr>
+        <tr><td><a href="https://www.youtube.com/@EEVblog" target="_blank">EEVblog</a></td><td><span class="resource-tag tag-youtube">YouTube</span></td><td>Deep dives, teardowns, and real-world analog engineering</td></tr>
+        <tr><td><a href="https://www.youtube.com/@NesoAcademy" target="_blank">Neso Academy</a></td><td><span class="resource-tag tag-youtube">YouTube</span></td><td>University-style lectures on circuits and electronics fundamentals</td></tr>
+        <tr><td><a href="https://www.youtube.com/@greatscottlab" target="_blank">GreatScott!</a></td><td><span class="resource-tag tag-youtube">YouTube</span></td><td>Hands-on projects, test equipment tips, practical builds</td></tr>
+        <tr><td><a href="https://www.ti.com/precisionlabs" target="_blank">TI Precision Labs</a></td><td><span class="resource-tag tag-course">Course</span></td><td>Industry-grade analog training from Texas Instruments (free)</td></tr>
+        <tr><td><a href="https://www.analog.com/en/resources/technical-tutorials.html" target="_blank">Analog Devices Tutorials</a></td><td><span class="resource-tag tag-docs">Docs</span></td><td>Professional-level analog and mixed-signal tutorials</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Beginner Projects</h3>
+    <div class="project-card">
+      <div class="project-card-title">🔊 Audio Preamplifier</div>
+      <p>Build a simple op-amp-based preamp for a microphone or guitar pickup. You'll learn about gain, impedance matching, and filtering — and you'll hear your results instantly.</p>
+    </div>
+    <div class="project-card">
+      <div class="project-card-title">🌡️ Sensor Signal Conditioning Circuit</div>
+      <p>Take an analog temperature sensor (like an LM35) and build an amplifier + filter circuit tocondition its output for clean readings. This is the kind of circuit you'll build over and over again.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ═══════════════════════════════════════════
+       TOPIC 2 — DIGITAL ELECTRONICS
+       ═══════════════════════════════════════════ -->
+  <div class="section" id="topic-2">
+    <div class="section-header">
+      <div class="section-number">2</div>
+      <h2><span class="topic-icon">🔲</span>Digital Electronics</h2>
+      <span class="level-badge level-beginner">Beginner</span>
+    </div>
+
+    <h3>What is it?</h3>
+    <p>Digital electronics works with discrete signals — things that are either HIGH or LOW, 1 or 0. It's the logic layer that sits on top of analog circuits and makes computation possible. Every smartphone, computer, and microcontroller in existence is built on digital logic.</p>
+    <p>You'll encounter logic gates (AND, OR, NOT, XOR), flip-flops, registers, multiplexers, decoders, and counters. These are the building blocks of everything from a simple LED blinker to a modern processor. Understanding how they work gives you an intuition for what's happening inside every chip you'll ever use.</p>
+
+    <h3>Why learn it?</h3>
+    <ul>
+      <li><strong>Foundation of computing</strong> — CPUs, GPUs, and microcontrollers are all digital circuits at their core.</li>
+      <li><strong>FPGA and hardware design</strong> — you literally build digital circuits when you program an FPGA.</li>
+      <li><strong>Understanding datasheets</strong> — digital logic levels, timing diagrams, and truth tables appear in every component's documentation.</li>
+      <li><strong>Protocol design</strong> — communication protocols like SPI and I²C are defined by digital timing.</li>
+    </ul>
+
+    <h3>Prerequisites</h3>
+    <ul>
+      <li>Basic analog electronics (voltage levels, pull-up/pull-down resistors)</li>
+    </ul>
+
+    <h3>Recommended Resources</h3>
+    <table class="resource-table">
+      <thead><tr><th>Resource</th><th>Type</th><th>Best For</th></tr></thead>
+      <tbody>
+        <tr><td><a href="https://www.youtube.com/@NesoAcademy" target="_blank">Neso Academy</a></td><td><span class="resource-tag tag-youtube">YouTube</span></td><td>Digital logic fundamentals, number systems, Karnaugh maps</td></tr>
+        <tr><td><a href="https://www.youtube.com/@BenEater" target="_blank">Ben Eater</a></td><td><span class="resource-tag tag-youtube">YouTube</span></td><td>Building an 8-bit computer from scratch on breadboards — legendary series</td></tr>
+        <tr><td><a href="https://circuitverse.org/simulator" target="_blank">CircuitVerse</a></td><td><span class="resource-tag tag-free">Free Tool</span></td><td>Browser-based digital logic simulator — test circuits without hardware</td></tr>
+        <tr><td><a href="https://github.com/logisim-evolution/logisim-evolution" target="_blank">Logisim Evolution</a></td><td><span class="resource-tag tag-free">Free Tool</span></td><td>Full-featured digital logic simulator with CPU design support</td></tr>
+        <tr><td><a href="https://www.nandland.com/" target="_blank">Nandland</a></td><td><span class="resource-tag tag-docs">Docs</span></td><td>From NAND gates to CPUs — step-by-step digital design</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Beginner Projects</h3>
+    <div class="project-card">
+      <div class="project-card-title">🔐 Digital Combination Lock</div>
+      <p>Build a 4-digit combination lock using logic gates and flip-flops. You'll learn state machines, sequential logic, and how real password systems work at the hardware level.</p>
+    </div>
+    <div class="project-card">
+      <div class="project-card-title">⏱️ Digital Stopwatch</div>
+      <p>Design a stopwatch using counters, decoders, and seven-segment displays. A great exercise in timing, sequential circuits, and interfacing with displays.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ═══════════════════════════════════════════
+       TOPIC 3 — PROGRAMMING IN C
+       ═══════════════════════════════════════════ -->
+  <div class="section" id="topic-3">
+    <div class="section-header">
+      <div class="section-number">3</div>
+      <h2><span class="topic-icon">⌨️</span>Programming in C</h2>
+      <span class="level-badge level-beginner">Beginner</span>
+    </div>
+
+    <h3>What is it?</h3>
+    <p>C is the language that runs the world's hardware. Every microcontroller firmware, every operating system kernel, every embedded device — C is there. It's close to the metal: you manage memory directly, you work with pointers, you talk to hardware registers.</p>
+    <p>Unlike Python or JavaScript, C doesn't hide the computer from you. That's not a bug — it's the entire point. Learning C teaches you how computers actually work, and that knowledge transfers to every other language you'll ever learn.</p>
+
+    <h3>Why learn it?</h3>
+    <ul>
+      <li><strong>Every microcontroller runs C</strong> — STM32, ESP32, Arduino (under the hood), PIC, AVR — all C.</li>
+      <li><strong>Memory management</strong> — understanding pointers and memory allocation is a superpower in embedded.</li>
+      <li><strong>Performance</strong> — when you need deterministic, fast code, C is the answer.</li>
+      <li><strong>Industry standard</strong> — embedded systems, automotive, aerospace, medical devices all use C.</li>
+      <li><strong>Reads datasheets</strong> — register maps and bit manipulation make sense when you know C.</li>
+    </ul>
+
+    <h3>Prerequisites</h3>
+    <ul>
+      <li>No prior programming required (but it helps if you've seen any language before)</li>
+    </ul>
+
+    <h3>Recommended Resources</h3>
+    <table class="resource-table">
+      <thead><tr><th>Resource</th><th>Type</th><th>Best For</th></tr></thead>
+      <tbody>
+        <tr><td><a href="https://www.youtube.com/freeCodeCamp" target="_blank">freeCodeCamp — C Course</a></td><td><span class="resource-tag tag-course">Course</span></td><td>Complete C beginner course, project-based</td></tr>
+        <tr><td><a href="https://beej.us/guide/bgc/" target="_blank">Beej's Guide to C Programming</a></td><td><span class="resource-tag tag-free">Free Book</span></td><td>Widely loved, conversational, covers everything from basics to advanced</td></tr>
+        <tr><td><a href="https://cs50.harvard.edu/x/" target="_blank">Harvard CS50x</a></td><td><span class="resource-tag tag-course">Course</span></td><td>The best intro to CS and C — rigorous but rewarding</td></tr>
+        <tr><td><a href="https://www.youtube.com/@JoelMarshallC" target="_blank">JoelMarshall C Tutorials</a></td><td><span class="resource-tag tag-youtube">YouTube</span></td><td>Embedded-focused C tutorials with practical examples</td></tr>
+        <tr><td><a href="https://www.learn-c.org/" target="_blank">Learn-C.org</a></td><td><span class="resource-tag tag-free">Free Tool</span></td><td>Interactive, browser-based C exercises</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Beginner Projects</h3>
+    <div class="project-card">
+      <div class="project-card-title">🧮 Command-Line Calculator</div>
+      <p>Build a calculator that takes user input from the terminal and performs arithmetic operations. Simple, but you'll learn variables, functions, and control flow fast.</p>
+    </div>
+    <div class="project-card">
+      <div class="project-card-title">💡 LED Pattern Generator</div>
+      <p>Write C code that generates different LED blink patterns — chase, fade, SOS, random. If you have an Arduino, this bridges the gap between programming and hardware.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ═══════════════════════════════════════════
+       TOPIC 4 — EMBEDDED SYSTEMS
+       ═══════════════════════════════════════════ -->
+  <div class="section" id="topic-4">
+    <div class="section-header">
+      <div class="section-number">4</div>
+      <h2><span class="topic-icon">🔧</span>Embedded Systems</h2>
+      <span class="level-badge level-beginner">Beginner</span>
+    </div>
+
+    <h3>What is it?</h3>
+    <p>An embedded system is a computer designed to do one specific job, built into a larger device. Your washing machine, your car's engine controller, the thermostat on your wall, the flight controller in a drone — all embedded systems. They run firmware (software burned into hardware) and typically have resource constraints that desktop software never faces.</p>
+    <p>This is where electronics meets programming. You'll work with microcontrollers — small, affordable chips that have a CPU, memory, and peripherals (GPIO, ADC, timers, UART) all on a single package. The Arduino platform is the most common entry point, but the real industry runs on bare-metal and HAL-level development.</p>
+
+    <h3>Why learn it?</h3>
+    <ul>
+      <li><strong>Everything is embedded</strong> — there are more microcontrollers manufactured each year than people on Earth.</li>
+      <li><strong>Career opportunities</strong> — embedded engineers are in high demand in automotive, aerospace, medical, and consumer electronics.</li>
+      <li><strong>Cross-disciplinary</strong> — you work with hardware, firmware, and sometimes networking simultaneously.</li>
+      <li><strong>Physical results</strong> — you see your code control real-world things: lights, motors, displays, sensors.</li>
+    </ul>
+
+    <h3>Prerequisites</h3>
+    <ul>
+      <li>Basic C programming</li>
+      <li>Basic digital electronics</li>
+    </ul>
+
+    <div class="callout callout-tip">
+      <div class="callout-title">💡 Arduino vs. Bare Metal</div>
+      <p>Arduino is a great way to start — it abstracts away complexity so you can focus on logic. But once you're comfortable, try writing bare-metal C for an STM32 or AVR. That's where the real learning happens.</p>
+    </div>
+
+    <h3>Recommended Resources</h3>
+    <table class="resource-table">
+      <thead><tr><th>Resource</th><th>Type</th><th>Best For</th></tr></thead>
+      <tbody>
+        <tr><td><a href="https://www.youtube.com/@ControllersTech" target="_blank">ControllersTech</a></td><td><span class="resource-tag tag-youtube">YouTube</span></td><td>STM32 bare-metal and HAL tutorials, best in class</td></tr>
+        <tr><td><a href="https://docs.arduino.cc/" target="_blank">Arduino Official Documentation</a></td><td><span class="resource-tag tag-docs">Docs</span></td><td>Getting started, built-in examples, library references</td></tr>
+        <tr><td><a href="https://www.youtube.com/@DroneBotWorkshop" target="_blank">DroneBot Workshop</a></td><td><span class="resource-tag tag-youtube">YouTube</span></td><td>Arduino and ESP32 projects with clear explanations</td></tr>
+        <tr><td><a href="https://www.youtube.com/@fastbitlab" target="_blank">FastBit Lab</a></td><td><span class="resource-tag tag-youtube">YouTube</span></td><td>Comprehensive STM32 and RTOS courses</td></tr>
+        <tr><td><a href="https://www.mikrocontroller.net/topic/536949" target="_blank">Embedded Systems — Shape The World</a></td><td><span class="resource-tag tag-course">Course</span></td><td>UT Austin course by Jonathan Valvano — gold standard</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Beginner Projects</h3>
+    <div class="project-card">
+      <div class="project-card-title">🌡️ Temperature & Humidity Logger</div>
+      <p>Use a DHT22 sensor with an Arduino to read temperature and humidity, display it on an LCD, and log data to an SD card. You'll touch sensors, displays, and file I/O in one project.</p>
+    </div>
+    <div class="project-card">
+      <div class="project-card-title">🚦 Smart Traffic Light Controller</div>
+      <p>Build a traffic light system with a button-activated pedestrian crossing and timed intervals. A classic state machine project that teaches timing, interrupts, and I/O handling.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ═══════════════════════════════════════════
+       TOPIC 5 — STM32
+       ═══════════════════════════════════════════ -->
+  <div class="section" id="topic-5">
+    <div class="section-header">
+      <div class="section-number">5</div>
+      <h2><span class="topic-icon">🎯</span>STM32</h2>
+      <span class="level-badge level-intermediate">Intermediate</span>
+    </div>
+
+    <h3>What is it?</h3>
+    <p>STM32 is a family of ARM Cortex-M microcontrollers made by STMicroelectronics. They're the industry workhorse — found in everything from industrial controllers to consumer devices. Compared to Arduino's 8-bit AVR, STM32 gives you 32-bit processing power, more peripherals, higher clock speeds, and a professional development environment (STM32CubeIDE).</p>
+    <p>Learning STM32 means working with hardware registers, configuring peripherals through registers or HAL (Hardware Abstraction Layer), handling interrupts, timers, PWM, ADC, and DMA. This is real embedded development — the kind you'd do at a job.</p>
+
+    <h3>Why learn it?</h3>
+    <ul>
+      <li><strong>Industry standard</strong> — STM32 dominates the microcontroller market in professional embedded.</li>
+      <li><strong>Powerful peripherals</strong> — advanced timers, multiple ADCs, DAC, USB, Ethernet, CAN, SPI, I²C.</li>
+      <li><strong>Scalable</strong> — from simple F0 series to powerful H7 series with dual cores and FPU.</li>
+      <li><strong>Ecosystem</strong> — STM32CubeMX for pin configuration, HAL/LL libraries, extensive documentation.</li>
+      <li><strong>Job-ready skill</strong> — listing "STM32 development" on your resume gets interviews.</li>
+    </ul>
+
+    <h3>Prerequisites</h3>
+    <ul>
+      <li>Strong C programming (pointers, structs, bit manipulation)</li>
+      <li>Basic embedded systems concepts (GPIO, interrupts, timers)</li>
+      <li>Familiarity with datasheets and reference manuals</li>
+    </ul>
+
+    <h3>Recommended Resources</h3>
+    <table class="resource-table">
+      <thead><tr><th>Resource</th><th>Type</th><th>Best For</th></tr></thead>
+      <tbody>
+        <tr><td><a href="https://www.youtube.com/@ControllersTech" target="_blank">ControllersTech</a></td><td><span class="resource-tag tag-youtube">YouTube</span></td><td>The definitive STM32 tutorial channel — HAL, bare-metal, every peripheral</td></tr>
+        <tr><td><a href="https://www.youtube.com/@fastbitlab" target="_blank">FastBit Lab</a></td><td><span class="resource-tag tag-youtube">YouTube</span></td><td>Full STM32 courses, RTOS integration</td></tr>
+        <tr><td><a href="https://www.st.com/en/embedded-software/stm32cube-mcu-mpu-packages.html" target="_blank">STM32Cube MCU Package</a></td><td><span class="resource-tag tag-docs">Docs</span></td><td>Official HAL drivers, examples, and BSPs</td></tr>
+        <tr><td><a href="https://www.st.com/resource/en/reference_manual/rm0433-stm32h745-stm32h747-stm32h755-and-stm32h757-advanced-armbased-32bit-mcus-stmicroelectronics.pdf" target="_blank">STM32 Reference Manuals</a></td><td><span class="resource-tag tag-docs">Docs</span></td><td>Definitive hardware documentation — register-level details</td></tr>
+        <tr><td><a href="https://wiki.st.com/stm32mpu/wiki/Getting_started" target="_blank">ST Wiki — Getting Started</a></td><td><span class="resource-tag tag-docs">Docs</span></td><td>Official getting started guides and tutorials</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Beginner Projects</h3>
+    <div class="project-card">
+      <div class="project-card-title">🎯 DC Motor Speed Controller</div>
+      <p>Use STM32's hardware timers to generate PWM signals and control motor speed with a potentiometer input via ADC. You'll learn timer configuration, ADC, and PWM — three pillars of STM32 development.</p>
+    </div>
+    <div class="project-card">
+      <div class="project-card-title">🖥️ OLED Display Interface</div>
+      <p>Interface an SSD1306 OLED display over I²C with an STM32. Display sensor data, create menus, and learn I²C communication and graphics libraries.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ═══════════════════════════════════════════
+       TOPIC 6 — ESP32 / IOT
+       ═══════════════════════════════════════════ -->
+  <div class="section" id="topic-6">
+    <div class="section-header">
+      <div class="section-number">6</div>
+      <h2><span class="topic-icon">📡</span>ESP32 / IoT</h2>
+      <span class="level-badge level-intermediate">Intermediate</span>
+    </div>
+
+    <h3>What is it?</h3>
+    <p>The ESP32 is a Wi-Fi and Bluetooth-enabled microcontroller made by Espressif. It's cheap (~$3), powerful (dual-core, 240 MHz), and packed with features. It's the go-to chip for Internet of Things projects — connecting physical devices to the internet.</p>
+    <p>IoT (Internet of Things) is the practice of embedding sensors, actuators, and networking into everyday objects. Smart home devices, agricultural monitoring, industrial sensors, wearables — IoT is everywhere. The ESP32 makes it accessible because it handles networking out of the box.</p>
+
+    <h3>Why learn it?</h3>
+    <ul>
+      <li><strong>Connected devices</strong> — send sensor data to the cloud, receive commands remotely, monitor things from your phone.</li>
+      <li><strong>Smart home</strong> — build your own smart switches, environmental monitors, and home automation systems.</li>
+      <li><strong>Low cost</strong> — ESP32 dev boards cost $3-10, making experimentation risk-free.</li>
+      <li><strong>Wi-Fi + Bluetooth</strong> — dual wireless interfaces in a single chip.</li>
+      <li><strong>Huge community</strong> — extensive libraries, tutorials, and community support.</li>
+    </ul>
+
+    <h3>Prerequisites</h3>
+    <ul>
+      <li>Basic embedded systems (or Arduino experience)</li>
+      <li>Basic C or MicroPython</li>
+      <li>Understanding of HTTP and basic networking helps</li>
+    </ul>
+
+    <h3>Recommended Resources</h3>
+    <table class="resource-table">
+      <thead><tr><th>Resource</th><th>Type</th><th>Best For</th></tr></thead>
+      <tbody>
+        <tr><td><a href="https://randomnerdtutorials.com/" target="_blank">Random Nerd Tutorials</a></td><td><span class="resource-tag tag-free">Free Tutorial</span></td><td>Best ESP32 resource — projects, guides, libraries, everything</td></tr>
+        <tr><td><a href="https://www.youtube.com/@AndreasSpiess" target="_blank">Andreas Spiess</a></td><td><span class="resource-tag tag-youtube">YouTube</span></td><td>Concise ESP32 and IoT tutorials with real hardware demos</td></tr>
+        <tr><td><a href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32/" target="_blank">ESP-IDF Documentation</a></td><td><span class="resource-tag tag-docs">Docs</span></td><td>Official Espressif IoT Development Framework — for serious development</td></tr>
+        <tr><td><a href="https://randomnerdtutorials.com/esp32-arduino-ide-2/" target="_blank">ESP32 Arduino Core Setup</a></td><td><span class="resource-tag tag-docs">Docs</span></td><td>Step-by-step setup for ESP32 with Arduino IDE</td></tr>
+        <tr><td><a href="https://www.youtube.com/@DroneBotWorkshop" target="_blank">DroneBot Workshop</a></td><td><span class="resource-tag tag-youtube">YouTube</span></td><td>ESP32 and Arduino projects with detailed walkthroughs</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Beginner Projects</h3>
+    <div class="project-card">
+      <div class="project-card-title">🌤️ Wi-Fi Weather Station</div>
+      <p>Read temperature, humidity, and pressure from a BME280 sensor and display the data on a web page served by the ESP32. Access it from your phone on the same network. Classic IoT first project.</p>
+    </div>
+    <div class="project-card">
+      <div class="project-card-title">🏠 Smart Home Controller</div>
+      <p>Control relays, LEDs, and servos from a web dashboard hosted on the ESP32. Add MQTT integration to make it work with Home Assistant. A project you'll actually keep using.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ═══════════════════════════════════════════
+       TOPIC 7 — COMMUNICATION PROTOCOLS
+       ═══════════════════════════════════════════ -->
+  <div class="section" id="topic-7">
+    <div class="section-header">
+      <div class="section-number">7</div>
+      <h2><span class="topic-icon">🔗</span>Communication Protocols</h2>
+      <span class="level-badge level-intermediate">Intermediate</span>
+    </div>
+
+    <h3>What is it?</h3>
+    <p>Communication protocols are the rules that govern how electronic devices talk to each other. When a sensor sends data to a microcontroller, when a microcontroller sends commands to a motor driver, when two boards exchange information — they're all using protocols.</p>
+    <p>The three most common you'll use daily are <strong>UART</strong> (serial, simple, point-to-point), <strong>SPI</strong> (fast, full-duplex, uses multiple chip select lines), and <strong>I²C</strong> (two-wire, supports multiple devices on one bus). More advanced protocols like <strong>CAN</strong> (automotive), <strong>USB</strong>, and <strong>Ethernet</strong> appear in specific applications.</p>
+
+    <h3>Why learn it?</h3>
+    <ul>
+      <li><strong>Everything communicates</strong> — sensors, displays, memory, other MCUs — they all need a protocol.</li>
+      <li><strong>Datasheet literacy</strong> — every datasheet tells you which protocol a device uses. Knowing them means you can read any datasheet.</li>
+      <li><strong>Debugging</strong> — logic analyzers and oscilloscopes show you protocol signals. Understanding the protocol means you can debug hardware issues.</li>
+      <li><strong>System design</strong> — choosing the right protocol for a job is a fundamental design skill.</li>
+    </ul>
+
+    <h3>Prerequisites</h3>
+    <ul>
+      <li>Basic embedded systems / microcontroller experience</li>
+      <li>C programming</li>
+    </ul>
+
+    <h3>Recommended Resources</h3>
+    <table class="resource-table">
+      <thead><tr><th>Resource</th><th>Type</th><th>Best For</th></tr></thead>
+      <tbody>
+        <tr><td><a href="https://www.youtube.com/@ControllersTech" target="_blank">ControllersTech — Protocol Videos</a></td><td><span class="resource-tag tag-youtube">YouTube</span></td><td>UART, SPI, I²C, CAN — theory + STM32 implementation</td></tr>
+        <tr><td><a href="https://learn.sparkfun.com/tutorials/serial-communication" target="_blank">SparkFun — Serial Communication</a></td><td><span class="resource-tag tag-free">Free Tutorial</span></td><td>Clear explanation of UART with diagrams and examples</td></tr>
+        <tr><td><a href="https://learn.sparkfun.com/tutorials/spi" target="_blank">SparkFun — SPI</a></td><td><span class="resource-tag tag-free">Free Tutorial</span></td><td>SPI explained with timing diagrams and practical tips</td></tr>
+        <tr><td><a href="https://learn.sparkfun.com/tutorials/i2c" target="_blank">SparkFun — I²C</a></td><td><span class="resource-tag tag-free">Free Tutorial</span></td><td>I²C fundamentals, addressing, and real-world usage</td></tr>
+        <tr><td><a href="https://www.youtube.com/@EEVblog" target="_blank">EEVblog — Protocol Analysis</a></td><td><span class="resource-tag tag-youtube">YouTube</span></td><td>Real-world protocol debugging with oscilloscopes</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Beginner Projects</h3>
+    <div class="project-card">
+      <div class="project-card-title">📊 Multi-Sensor Data Logger</div>
+      <p>Connect 3-4 different sensors (temperature, accelerometer, GPS) to a microcontroller using I²C and SPI simultaneously. Log all data to an SD card via SPI. You'll learn bus management, addressing, and timing.</p>
+    </div>
+    <div class="project-card">
+      <div class="project-card-title">💬 UART Debug Console</div>
+      <p>Build a command-line interface over UART that lets you send commands to your microcontroller and read sensor values in real time. Essential debugging infrastructure you'll reuse in every project.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ═══════════════════════════════════════════
+       TOPIC 8 — SENSORS
+       ═══════════════════════════════════════════ -->
+  <div class="section" id="topic-8">
+    <div class="section-header">
+      <div class="section-number">8</div>
+      <h2><span class="topic-icon">👁️</span>Sensors</h2>
+      <span class="level-badge level-intermediate">Intermediate</span>
+    </div>
+
+    <h3>What is it?</h3>
+    <p>Sensors are the eyes, ears, and skin of any electronic system. They convert physical phenomena — light, temperature, pressure, motion, distance, sound — into electrical signals that a microcontroller can process. Without sensors, a robot is blind, a weather station is useless, and a self-driving car is just a car.</p>
+    <p>You'll encounter a wide range: IMUs (accelerometers + gyroscopes) for motion tracking, encoders for motor position, ultrasonic and LIDAR sensors for distance, cameras for vision, hall effect sensors for magnetic fields, and countless others.</p>
+
+    <h3>Why learn it?</h3>
+    <ul>
+      <li><strong>Robotics perception</strong> — robots need sensors to navigate, avoid obstacles, and interact with the world.</li>
+      <li><strong>Data acquisition</strong> — any measurement system starts with the right sensor.</li>
+      <li><strong>IoT monitoring</strong> — environmental sensors are the backbone of smart agriculture, smart cities, and industrial monitoring.</li>
+      <li><strong>Fusion</strong> — combining multiple sensors (sensor fusion) is a core skill for autonomous systems.</li>
+    </ul>
+
+    <h3>Prerequisites</h3>
+    <ul>
+      <li>Embedded systems fundamentals</li>
+      <li>Communication protocols (I²C, SPI, UART)</li>
+      <li>Basic analog electronics (for analog sensors)</li>
+    </ul>
+
+    <h3>Recommended Resources</h3>
+    <table class="resource-table">
+      <thead><tr><th>Resource</th><th>Type</th><th>Best For</th></tr></thead>
+      <tbody>
+        <tr><td><a href="https://learn.sparkfun.com/" target="_blank">SparkFun Learn</a></td><td><span class="resource-tag tag-free">Free Tutorial</span></td><td>Extensive sensor guides with wiring diagrams and code examples</td></tr>
+        <tr><td><a href="https://learn.adafruit.com/" target="_blank">Adafruit Learn</a></td><td><span class="resource-tag tag-free">Free Tutorial</span></td><td>Beautiful tutorials for every sensor category — beginner-friendly</td></tr>
+        <tr><td><a href="https://www.youtube.com/@AndreasSpiess" target="_blank">Andreas Spiess</a></td><td><span class="resource-tag tag-youtube">YouTube</span></td><td>ESP32 sensor projects with practical comparisons</td></tr>
+        <tr><td><a href="https://www.youtube.com/@ControllersTech" target="_blank">ControllersTech</a></td><td><span class="resource-tag tag-youtube">YouTube</span></td><td>STM32 sensor interfacing tutorials — MPU6050, BMP280, etc.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Beginner Projects</h3>
+    <div class="project-card">
+      <div class="project-card-title">🌍 Environmental Monitoring Station</div>
+      <p>Combine a BME280 (temperature, humidity, pressure), BH1750 (light), and MQ-135 (air quality) sensor into one station. Log data and display on a screen. Covers I²C, SPI, and analog sensing in one build.</p>
+    </div>
+    <div class="project-card">
+      <div class="project-card-title">📏 Ultrasonic Distance Sensor Array</div>
+      <p>Use multiple HC-SR04 ultrasonic sensors to measure distances in different directions and display results in real time. Good practice for timing-sensitive sensor reading and data processing.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ═══════════════════════════════════════════
+       TOPIC 9 — POWER ELECTRONICS
+       ═══════════════════════════════════════════ -->
+  <div class="section" id="topic-9">
+    <div class="section-header">
+      <div class="section-number">9</div>
+      <h2><span class="topic-icon">🔋</span>Power Electronics</h2>
+      <span class="level-badge level-intermediate">Intermediate</span>
+    </div>
+
+    <h3>What is it?</h3>
+    <p>Power electronics is about managing electrical energy efficiently — converting voltage levels, regulating power, and driving high-current loads. Every device that plugs into a wall or runs on a battery uses power electronics: voltage regulators, DC-DC converters (buck, boost, buck-boost), battery management systems, and motor drivers.</p>
+    <p>The key challenge is efficiency. Linear regulators waste energy as heat. Switching regulators use inductors and capacitors to convert power at 85-95% efficiency. Understanding this distinction — and when to use each — is fundamental.</p>
+
+    <h3>Why learn it?</h3>
+    <ul>
+      <li><strong>Every project needs power</strong> — choosing the wrong regulator means overheating, battery drain, or damaged components.</li>
+      <li><strong>Battery-powered devices</strong> — efficient power conversion extends battery life dramatically.</li>
+      <li><strong>Motor driving</strong> — motors need high current and often different voltages than your logic.</li>
+      <li><strong>EVs and renewable energy</strong> — power electronics is the backbone of electric vehicles and solar systems.</li>
+    </ul>
+
+    <h3>Prerequisites</h3>
+    <ul>
+      <li>Analog electronics (transistors, inductors, capacitors)</li>
+      <li>Basic understanding of switching circuits</li>
+    </ul>
+
+    <h3>Recommended Resources</h3>
+    <table class="resource-table">
+      <thead><tr><th>Resource</th><th>Type</th><th>Best For</th></tr></thead>
+      <tbody>
+        <tr><td><a href="https://www.youtube.com/@EEVblog" target="_blank">EEVblog — Power Supply Videos</a></td><td><span class="resource-tag tag-youtube">YouTube</span></td><td>Practical power supply design, teardowns, and debugging</td></tr>
+        <tr><td><a href="https://www.youtube.com/@greatscottlab" target="_blank">GreatScott! — Buck Converter Series</a></td><td><span class="resource-tag tag-youtube">YouTube</span></td><td>Build a buck converter from scratch, explained step by step</td></tr>
+        <tr><td><a href="https://www.ti.com/precisionlabs" target="_blank">TI Power Management Training</a></td><td><span class="resource-tag tag-course">Course</span></td><td>Professional power electronics training from Texas Instruments</td></tr>
+        <tr><td><a href="https://www.analog.com/en/resources/technical-tutorials.html" target="_blank">ADI Power Tutorials</a></td><td><span class="resource-tag tag-docs">Docs</span></td><td>Analog Devices power management design guides</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Beginner Projects</h3>
+    <div class="project-card">
+      <div class="project-card-title">⚡ Adjustable Buck Converter</div>
+      <p>Build a variable-output buck converter using an LM2596 module or from discrete components. Measure efficiency at different loads. You'll learn how switching regulators work and why they matter.</p>
+    </div>
+    <div class="project-card">
+      <div class="project-card-title">🔋 18650 Battery Management System</div>
+      <p>Design a simple BMS with cell balancing and over-discharge protection for a 2S or 3S lithium battery pack. Critical skill for any battery-powered project.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ═══════════════════════════════════════════
+       TOPIC 10 — MOTOR CONTROL
+       ═══════════════════════════════════════════ -->
+  <div class="section" id="topic-10">
+    <div class="section-header">
+      <div class="section-number">10</div>
+      <h2><span class="topic-icon">⚙️</span>Motor Control</h2>
+      <span class="level-badge level-intermediate">Intermediate</span>
+    </div>
+
+    <h3>What is it?</h3>
+    <p>Motors convert electrical energy into mechanical motion. There are several types, each with different characteristics: <strong>DC motors</strong> (simple, fast, need drivers), <strong>stepper motors</strong> (precise positioning, open-loop), <strong>servo motors</strong> (angle control via PWM), and <strong>BLDC motors</strong> (high efficiency, used in drones and EVs).</p>
+    <p>Motor control goes beyond just spinning a motor. It involves driving circuits (H-bridges, MOSFETs), PWM speed control, closed-loop feedback with encoders, and advanced techniques like Field-Oriented Control (FOC) for BLDC motors.</p>
+
+    <h3>Why learn it?</h3>
+    <ul>
+      <li><strong>Robotics</strong> — every moving part in a robot has a motor behind it.</li>
+      <li><strong>Industrial automation</strong> — conveyor belts, CNC machines, robotic arms.</li>
+      <li><strong>Electric vehicles</strong> — BLDC and FOC motor control is the core technology in EVs.</li>
+      <li><strong>Drones</strong> — quadcopters use four BLDC motors with precise speed control.</li>
+    </ul>
+
+    <h3>Prerequisites</h3>
+    <ul>
+      <li>Power electronics basics (MOSFETs, H-bridges)</li>
+      <li>Embedded systems (PWM generation, interrupts)</li>
+      <li>C programming</li>
+    </ul>
+
+    <h3>Recommended Resources</h3>
+    <table class="resource-table">
+      <thead><tr><th>Resource</th><th>Type</th><th>Best For</th></tr></thead>
+      <tbody>
+        <tr><td><a href="https://www.youtube.com/@greatscottlab" target="_blank">GreatScott! — Motor Control Series</a></td><td><span class="resource-tag tag-youtube">YouTube</span></td><td>DC motor, ESC, and BLDC motor projects</td></tr>
+        <tr><td><a href="https://www.youtube.com/@ControllersTech" target="_blank">ControllersTech — Motor Control</a></td><td><span class="resource-tag tag-youtube">YouTube</span></td><td>STM32-based motor control with HAL — steppers, DC, BLDC</td></tr>
+        <tr><td><a href="https://www.st.com/en/motor-drivers.html" target="_blank">ST Motor Driver ICs</a></td><td><span class="resource-tag tag-docs">Docs</span></td><td>Application notes and reference designs for motor drivers</td></tr>
+        <tr><td><a href="https://www.youtube.com/@JamesBruton" target="_blank">James Bruton</a></td><td><span class="resource-tag tag-youtube">YouTube</span></td><td>Real robot builds — BMD-345, FOC, custom motor controllers</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Beginner Projects</h3>
+    <div class="project-card">
+      <div class="project-card-title">🎛️ PID-Controlled Motor Speed</div>
+      <p>Use an encoder-equipped DC motor with an STM32. Implement a PID controller to maintain precise speed regardless of load changes. You'll learn feedback control, encoder reading, and PID tuning — core robotics skills.</p>
+    </div>
+    <div class="project-card">
+      <div class="project-card-title">🦾 Servo Robot Arm Joint</div>
+      <p>Control a servo motor with a potentiometer and PWM. Scale up to multiple servos for a simple 2-3 DOF robot arm. Teaches PWM, analog input, and kinematics basics.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ═══════════════════════════════════════════
+       TOPIC 11 — PCB DESIGN
+       ═══════════════════════════════════════════ -->
+  <div class="section" id="topic-11">
+    <div class="section-header">
+      <div class="section-number">11</div>
+      <h2><span class="topic-icon">📐</span>PCB Design</h2>
+      <span class="level-badge level-intermediate">Intermediate</span>
+    </div>
+
+    <h3>What is it?</h3>
+    <p>PCB (Printed Circuit Board) design is the process of turning a schematic diagram into a physical board that connects components with copper traces. It's how every electronic product goes from concept to manufacturing. You design the board layout, define copper paths, place components, and generate manufacturing files (Gerbers) that a fab house uses to produce your board.</p>
+    <p><strong>KiCad</strong> is the go-to free, open-source EDA (Electronic Design Automation) tool. It's professional-grade, used by companies and hobbyists alike. Learning KiCad means you can design boards from simple breakout boards to complex multi-layer designs.</p>
+
+    <h3>Why learn it?</h3>
+    <ul>
+      <li><strong>From breadboard to product</strong> — PCBs make your circuits permanent, compact, and professional.</li>
+      <li><strong>Job skill</strong> — hardware engineers design PCBs daily. It's a core competency.</li>
+      <li><strong>Cost-effective</strong> — PCB fabrication is cheap ($2 for 5 boards from JLCPCB). Prototyping is accessible.</li>
+      <li><strong>Portfolio piece</strong> — showing boards you designed is powerful in interviews.</li>
+      <li><strong>Integration</strong> — combine sensors, microcontrollers, and power circuits into one custom board.</li>
+    </ul>
+
+    <h3>Prerequisites</h3>
+    <ul>
+      <li>Analog and digital electronics basics</li>
+      <li>Ability to read schematics</li>
+      <li>Understanding of the components you want to place</li>
+    </ul>
+
+    <h3>Recommended Resources</h3>
+    <table class="resource-table">
+      <thead><tr><th>Resource</th><th>Type</th><th>Best For</th></tr></thead>
+      <tbody>
+        <tr><td><a href="https://www.youtube.com/@phils lab" target="_blank">Phil's Lab — PCB Design</a></td><td><span class="resource-tag tag-youtube">YouTube</span></td><td>Best KiCad tutorials — from schematic to layout to manufacturing</td></tr>
+        <tr><td><a href="https://www.youtube.com/@robertferanec" target="_blank">Robert Feranec</a></td><td><span class="resource-tag tag-youtube">YouTube</span></td><td>Advanced PCB design, high-speed layout, signal integrity</td></tr>
+        <tr><td><a href="https://docs.kicad.org/" target="_blank">KiCad Documentation</a></td><td><span class="resource-tag tag-docs">Docs</span></td><td>Official KiCad manual — comprehensive and well-maintained</td></tr>
+        <tr><td><a href="https://www.digikey.com/en/resources" target="_blank">DigiKey — PCB Resources</a></td><td><span class="resource-tag tag-free">Free Tutorial</span></td><td>Component selection guides and design tips</td></tr>
+        <tr><td><a href="https://www.youtube.com/@RobertFeranec" target="_blank">Phil's Lab — Power Supply PCB</a></td><td><span class="resource-tag tag-youtube">YouTube</span></td><td>Full PCB walkthrough: design, layout, and ordering</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Beginner Projects</h3>
+    <div class="project-card">
+      <div class="project-card-title">🔌 STM32 Breakout Board</div>
+      <p>Design a minimal STM32 breakout board with decoupling capacitors, crystal oscillator, reset circuit, and SWD header. Get it manufactured, solder it, and flash your first blink program. A rite of passage.</p>
+    </div>
+    <div class="project-card">
+      <div class="project-card-title">🌡️ Custom Sensor Board</div>
+      <p>Design a compact board integrating an STM32, multiple I²C sensors, an OLED display, and a LiPo battery charger. A single-board solution for environmental monitoring — and a portfolio piece.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ═══════════════════════════════════════════
+       TOPIC 12 — CONTROL SYSTEMS
+       ═══════════════════════════════════════════ -->
+  <div class="section" id="topic-12">
+    <div class="section-header">
+      <div class="section-number">12</div>
+      <h2><span class="topic-icon">🎛️</span>Control Systems</h2>
+      <span class="level-badge level-intermediate">Intermediate</span>
+    </div>
+
+    <h3>What is it?</h3>
+    <p>Control systems engineering is about making things behave the way you want. A cruise control system maintains speed. A drone stays level in wind. A robotic arm reaches a precise position. All of these use feedback control — measuring the current state, comparing it to the desired state, and adjusting accordingly.</p>
+    <p>The most important concept you'll learn is the <strong>PID controller</strong> (Proportional-Integral-Derivative). It's the most widely used control algorithm in the world. You'll also encounter transfer functions, stability analysis, Bode plots, and state-space representations.</p>
+
+    <h3>Why learn it?</h3>
+    <ul>
+      <li><strong>Robotics</strong> — every robot joint, every drone motor, every self-balancing system needs control.</li>
+      <li><strong>Industrial automation</strong> — manufacturing plants run on PID controllers everywhere.</li>
+      <li><strong>Automotive</strong> — ABS, traction control, cruise control, lane keeping — all control systems.</li>
+      <li><strong>It's elegant</strong> — understanding why a system oscillates, then fixing it with math, is deeply satisfying.</li>
+    </ul>
+
+    <h3>Prerequisites</h3>
+    <ul>
+      <li>Basic math (calculus helps, but PID can be understood intuitively)</li>
+      <li>Basic programming (Python or C)</li>
+      <li>Some experience with sensors and actuators</li>
+    </ul>
+
+    <h3>Recommended Resources</h3>
+    <table class="resource-table">
+      <thead><tr><th>Resource</th><th>Type</th><th>Best For</th></tr></thead>
+      <tbody>
+        <tr><td><a href="https://www.youtube.com/@BrianDouglas" target="_blank">Brian Douglas</a></td><td><span class="resource-tag tag-youtube">YouTube</span></td><td>Best control systems channel on YouTube — intuitive, visual, thorough</td></tr>
+        <tr><td><a href="https://ctms.engin.umich.edu/CTMS/Content/Activities/ControlTutorialsforMATLABandSimulink.html" target="_blank">UMich Control Tutorials</a></td><td><span class="resource-tag tag-course">Course</span></td><td>Interactive MATLAB-based control system tutorials</td></tr>
+        <tr><td><a href="https://www.youtube.com/@BrianDouglas" target="_blank">Brian Douglas — PID Playlist</a></td><td><span class="resource-tag tag-youtube">YouTube</span></td><td>Best PID explanation for engineers — theory + practical tuning</td></tr>
+        <tr><td><a href="https://pidtutorial.com/" target="_blank">PID Tuning Guide</a></td><td><span class="resource-tag tag-free">Free Tool</span></td><td>Interactive PID tuner — experiment with P, I, D gains in real time</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Beginner Projects</h3>
+    <div class="project-card">
+      <div class="project-card-title">🔄 PID Motor Speed Controller</div>
+      <p>Use an encoder-equipped DC motor with a microcontroller. Implement PID to maintain constant speed under varying loads. Tune the gains by hand to see how each term affects response. This project teaches you more about control than any textbook.</p>
+    </div>
+    <div class="project-card">
+      <div class="project-card-title">⚖️ Self-Balancing Platform</div>
+      <p>Build a platform that balances itself on a single pivot point using an IMU sensor and a servo motor. PID control keeps it level. A classic, fun, and visually impressive control systems project.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ═══════════════════════════════════════════
+       TOPIC 13 — ROBOTICS
+       ═══════════════════════════════════════════ -->
+  <div class="section" id="topic-13">
+    <div class="section-header">
+      <div class="section-number">13</div>
+      <h2><span class="topic-icon">🤖</span>Robotics</h2>
+      <span class="level-badge level-intermediate">Intermediate</span>
+    </div>
+
+    <h3>What is it?</h3>
+    <p>Robotics is the integration of mechanical engineering, electronics, and software to create machines that can sense their environment, make decisions, and take action. It's the ultimate multidisciplinary field — it combines sensors, motors, control systems, programming, and mechanical design into one coherent system.</p>
+    <p>At its core, robotics is about the loop: <strong>sense → think → act</strong>. Sensors gather data. A controller processes that data and makes decisions. Actuators (motors, servos) execute the decisions. Understanding and optimizing this loop is the essence of robotics engineering.</p>
+
+    <h3>Why learn it?</h3>
+    <ul>
+      <li><strong>The ultimate integration</strong> — robotics forces you to apply everything you've learned in one project.</li>
+      <li><strong>Industry growth</strong> — robotics is one of the fastest-growing engineering fields globally.</li>
+      <li><strong>Diverse applications</strong> — from manufacturing and healthcare to space exploration and agriculture.</li>
+      <li><strong>Fun factor</strong> — nothing beats watching a robot you built navigate a room on its own.</li>
+    </ul>
+
+    <h3>Prerequisites</h3>
+    <ul>
+      <li>Embedded systems (microcontrollers, sensors, motors)</li>
+      <li>Basic control systems (PID at minimum)</li>
+      <li>C or Python programming</li>
+    </ul>
+
+    <h3>Recommended Resources</h3>
+    <table class="resource-table">
+      <thead><tr><th>Resource</th><th>Type</th><th>Best For</th></tr></thead>
+      <tbody>
+        <tr><td><a href="https://www.youtube.com/@ArticulatedRobotics" target="_blank">Articulated Robotics</a></td><td><span class="resource-tag tag-youtube">YouTube</span></td><td>Practical robotics builds with clear explanations — great for learning</td></tr>
+        <tr><td><a href="https://www.youtube.com/@JamesBruton" target="_blank">James Bruton</a></td><td><span class="resource-tag tag-youtube">YouTube</span></td><td>Advanced robot builds — quadrupeds, arms, bipeds — real engineering</td></tr>
+        <tr><td><a href="https://automaticaddison.com/" target="_blank">AutomaticAddison</a></td><td><span class="resource-tag tag-free">Free Tutorial</span></td><td>ROS, robotics programming, and sensor integration</td></tr>
+        <tr><td><a href="https://www.amazon.com/Introduction-Robotics-Programming-Python-ROS/dp/1484239194" target="_blank">Robotics — Vision, Control and Navigation</a></td><td><span class="resource-tag tag-course">Book</span></td><td>When you want a deeper theoretical foundation</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Beginner Projects</h3>
+    <div class="project-card">
+      <div class="project-card-title">🛤️ Line Follower Robot</div>
+      <p>Build a robot that follows a black line on a white surface using IR sensors and PID motor control. The classic first robotics project — simple concept, but mastering it teaches you sensor reading, motor control, and PID tuning.</p>
+    </div>
+    <div class="project-card">
+      <div class="project-card-title">🚧 Obstacle-Avoiding Robot</div>
+      <p>Use ultrasonic sensors and a servo to scan the environment and navigate around obstacles autonomously. Teaches path planning, sensor fusion, and decision-making.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ═══════════════════════════════════════════
+       TOPIC 14 — ROS 2
+       ═══════════════════════════════════════════ -->
+  <div class="section" id="topic-14">
+    <div class="section-header">
+      <div class="section-number">14</div>
+      <h2><span class="topic-icon">🏗️</span>ROS 2</h2>
+      <span class="level-badge level-advanced">Advanced</span>
+    </div>
+
+    <h3>What is it?</h3>
+    <p>ROS 2 (Robot Operating System 2) is middleware — a framework that provides the tools, libraries, and conventions for building robot software. It handles communication between different parts of a robot (nodes), sensor data management, hardware abstraction, and provides a rich ecosystem of pre-built packages for navigation, SLAM, perception, and more.</p>
+    <p>ROS 2 is the industry standard for robot software development. It runs on Linux (typically Ubuntu) and uses DDS (Data Distribution Service) for communication. It's not an operating system in the traditional sense — it's a development framework that runs on top of Linux.</p>
+
+    <h3>Why learn it?</h3>
+    <ul>
+      <li><strong>Industry standard</strong> — most professional robot companies use ROS/ROS 2.</li>
+      <li><strong>Modular design</strong> — build separate nodes for perception, planning, and control, then connect them.</li>
+      <li><strong>Simulation</strong> — Gazebo integration lets you test robots virtually before building hardware.</li>
+      <li><strong>Navigation stack</strong> — pre-built SLAM and path planning algorithms you can use immediately.</li>
+      <li><strong>Community</strong> — thousands of open-source packages you can use and learn from.</li>
+    </ul>
+
+    <h3>Prerequisites</h3>
+    <ul>
+      <li>Linux command line (Ubuntu basics)</li>
+      <li>Python or C++ programming</li>
+      <li>Basic understanding of robotics concepts (sensors, actuators, coordinate frames)</li>
+    </ul>
+
+    <h3>Recommended Resources</h3>
+    <table class="resource-table">
+      <thead><tr><th>Resource</th><th>Type</th><th>Best For</th></tr></thead>
+      <tbody>
+        <tr><td><a href="https://docs.ros.org/en/humble/Tutorials.html" target="_blank">ROS 2 Official Tutorials</a></td><td><span class="resource-tag tag-docs">Docs</span></td><td>Start here — the official beginner tutorials are excellent</td></tr>
+        <tr><td><a href="https://automaticaddison.com/category/ros-2/" target="_blank">AutomaticAddison — ROS 2</a></td><td><span class="resource-tag tag-free">Free Tutorial</span></td><td>Step-by-step ROS 2 tutorials with practical robot examples</td></tr>
+        <tr><td><a href="https://www.youtube.com/@ArticulatedRobotics" target="_blank">Articulated Robotics</a></td><td><span class="resource-tag tag-youtube">YouTube</span></td><td>Real-world ROS 2 projects with physical robots</td></tr>
+        <tr><td><a href="https://www.youtube.com/@TheConstructSim" target="_blank">The Construct</a></td><td><span class="resource-tag tag-youtube">YouTube</span></td><td>ROS 2 courses and practice environments</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Beginner Projects</h3>
+    <div class="project-card">
+      <div class="project-card-title">🗺️ Simulated Robot Navigation</div>
+      <p>Set up a simulated robot in Gazebo with ROS 2. Use the Nav2 navigation stack to make it autonomously navigate between waypoints in a virtual environment. No hardware needed — just a computer running Ubuntu.</p>
+    </div>
+    <div class="project-card">
+      <div class="project-card-title">📡 Multi-Sensor Fusion Node</div>
+      <p>Create a ROS 2 node that combines data from multiple sensors (IMU, LiDAR, odometry) and publishes a unified odometry message. Learn about topics, services, and tf2 coordinate transforms.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ═══════════════════════════════════════════
+       TOPIC 15 — COMPUTER VISION
+       ═══════════════════════════════════════════ -->
+  <div class="section" id="topic-15">
+    <div class="section-header">
+      <div class="section-number">15</div>
+      <h2><span class="topic-icon">📷</span>Computer Vision</h2>
+      <span class="level-badge level-advanced">Advanced</span>
+    </div>
+
+    <h3>What is it?</h3>
+    <p>Computer vision is the field of making computers understand images and video. It encompasses everything from simple color detection to deep-learning-based object recognition. CV is how self-driving cars see pedestrians, how phones recognize faces, and how drones navigate autonomously.</p>
+    <p>OpenCV is the foundational library — it provides thousands of algorithms for image processing, feature detection, object tracking, and more. Modern CV also uses deep learning (neural networks) for tasks like image classification, object detection, and semantic segmentation.</p>
+
+    <h3>Why learn it?</h3>
+    <ul>
+      <li><strong>Autonomous systems</strong> — self-driving cars, drones, and robots all rely on vision.</li>
+      <li><strong>Industrial inspection</strong> — automated quality control, defect detection, sorting systems.</li>
+      <li><strong>Medical imaging</strong> — X-ray analysis, surgical assistance, diagnostic tools.</li>
+      <li><strong>AR/VR</strong> — augmented reality applications need real-time vision processing.</li>
+      <li><strong>Security</strong> — surveillance, face recognition, anomaly detection.</li>
+    </ul>
+
+    <h3>Prerequisites</h3>
+    <ul>
+      <li>Python programming</li>
+      <li>Basic linear algebra (helpful, not strictly required for OpenCV)</li>
+      <li>Linux basics (recommended for GPU-accelerated work)</li>
+    </ul>
+
+    <h3>Recommended Resources</h3>
+    <table class="resource-table">
+      <thead><tr><th>Resource</th><th>Type</th><th>Best For</th></tr></thead>
+      <tbody>
+        <tr><td><a href="https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html" target="_blank">OpenCV Python Tutorials</a></td><td><span class="resource-tag tag-docs">Docs</span></td><td>Official tutorials — start here for image processing fundamentals</td></tr>
+        <tr><td><a href="https://www.youtube.com/@maboroshistudios" target="_blank">Murtaza's Workshop</a></td><td><span class="resource-tag tag-youtube">YouTube</span></td><td>OpenCV projects, face detection, object tracking — very practical</td></tr>
+        <tr><td><a href="https://www.youtube.com/@ComputerVisionEngineer" target="_blank">Computer Vision Engineer</a></td><td><span class="resource-tag tag-youtube">YouTube</span></td><td>Professional CV topics — detection, tracking, deep learning integration</td></tr>
+        <tr><td><a href="https://cs231n.stanford.edu/" target="_blank">Stanford CS231n</a></td><td><span class="resource-tag tag-course">Course</span></td><td>Deep learning for computer vision — when you're ready to go deep</td></tr>
+        <tr><td><a href="https://pyimagesearch.com/" target="_blank">PyImageSearch</a></td><td><span class="resource-tag tag-free">Free Tutorial</span></td><td>Adrian Rosebrock's extensive OpenCV tutorials — excellent quality</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Beginner Projects</h3>
+    <div class="project-card">
+      <div class="project-card-title">🎯 Real-Time Object Tracker</div>
+      <p>Use OpenCV's built-in trackers (CSRT, KCF) to follow a colored object in your webcam feed. Start with color-based detection (HSV thresholding) and graduate to built-in tracking algorithms.</p>
+    </div>
+    <div class="project-card">
+      <div class="project-card-title">🛣️ Lane Detector</div>
+      <p>Process video from a dashcam to detect lane markings using edge detection (Canny) and line fitting (Hough Transform). The classic self-driving car tutorial project — and it teaches you real CV fundamentals.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ═══════════════════════════════════════════
+       TOPIC 16 — EMBEDDED LINUX
+       ═══════════════════════════════════════════ -->
+  <div class="section" id="topic-16">
+    <div class="section-header">
+      <div class="section-number">16</div>
+      <h2><span class="topic-icon">🐧</span>Embedded Linux</h2>
+      <span class="level-badge level-advanced">Advanced</span>
+    </div>
+
+    <h3>What is it?</h3>
+    <p>Embedded Linux means running the Linux operating system on resource-constrained hardware — single-board computers like the Raspberry Pi, BeagleBone, or industrial boards running ARM processors. Unlike microcontrollers where you write bare-metal firmware, embedded Linux gives you a full operating system with process management, networking, file systems, and hardware drivers.</p>
+    <p>You'll work with board bring-up, custom Linux images (using Buildroot or Yocto), device drivers, cross-compilation, and system integration. It's where embedded systems meets software engineering.</p>
+
+    <h3>Why learn it?</h3>
+    <ul>
+      <li><strong>Complex systems</strong> — when you need networking, databases, USB, cameras, and GUIs, a microcontroller isn't enough.</li>
+      <li><strong>Industrial applications</strong> — kiosks, medical devices, automotive infotainment, industrial controllers all run Linux.</li>
+      <li><strong>Robotics</strong> — many robot controllers run ROS 2 on embedded Linux (Jetson, BeagleBone, Raspberry Pi).</li>
+      <li><strong>Security and updates</strong> — Linux provides networking stacks, security features, and OTA update capabilities.</li>
+    </ul>
+
+    <h3>Prerequisites</h3>
+    <ul>
+      <li>Linux command line proficiency</li>
+      <li>C programming</li>
+      <li>Basic embedded systems understanding</li>
+    </ul>
+
+    <h3>Recommended Resources</h3>
+    <table class="resource-table">
+      <thead><tr><th>Resource</th><th>Type</th><th>Best For</th></tr></thead>
+      <tbody>
+        <tr><td><a href="https://www.youtube.com/@LearnLinuxTV" target="_blank">LearnLinuxTV</a></td><td><span class="resource-tag tag-youtube">YouTube</span></td><td>Best Linux channel — commands, system administration, and embedded</td></tr>
+        <tr><td><a href="https://ubuntu.com/tutorials" target="_blank">Ubuntu Tutorials</a></td><td><span class="resource-tag tag-docs">Docs</span></td><td>Official Ubuntu guides — system setup, networking, packages</td></tr>
+        <tr><td><a href="https://bootlin.com/doc/training/embedded-linux/" target="_blank">Bootlin — Embedded Linux</a></td><td><span class="resource-tag tag-course">Course</span></td><td>Professional embedded Linux training — kernel, drivers, Yocto</td></tr>
+        <tr><td><a href="https://www.youtube.com/@LearnLinuxTV" target="_blank">LearnLinuxTV — Raspberry Pi</a></td><td><span class="resource-tag tag-youtube">YouTube</span></td><td>Raspberry Pi setup, projects, and administration</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Beginner Projects</h3>
+    <div class="project-card">
+      <div class="project-card-title">📷 Raspberry Pi Camera Server</div>
+      <p>Set up a Raspberry Pi with a camera module that streams video over your local network via a web interface. You'll learn Linux networking, video streaming, and web server setup.</p>
+    </div>
+    <div class="project-card">
+      <div class="project-card-title">🔧 Custom Linux Image with Buildroot</div>
+      <p>Build a minimal Linux image for a Raspberry Pi using Buildroot. Strip it down to just what you need — no desktop, no bloat. Understanding how Linux boots and runs on embedded hardware is a career-defining skill.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ═══════════════════════════════════════════
+       TOPIC 17 — RTOS
+       ═══════════════════════════════════════════ -->
+  <div class="section" id="topic-17">
+    <div class="section-header">
+      <div class="section-number">17</div>
+      <h2><span class="topic-icon">⏱️</span>RTOS</h2>
+      <span class="level-badge level-advanced">Advanced</span>
+    </div>
+
+    <h3>What is it?</h3>
+    <p>A Real-Time Operating System (RTOS) is a lightweight OS designed for embedded systems that need deterministic timing — tasks must complete within strict deadlines. Unlike a general-purpose OS (like Linux), an RTOS guarantees that high-priority tasks will execute within a known, bounded time.</p>
+    <p><strong>FreeRTOS</strong> is the most widely used RTOS in the world — it's built into ESP-IDF, STM32CubeMX, and supported by every major microcontroller vendor. You'll learn about tasks, semaphores, mutexes, message queues, task priorities, and scheduling.</p>
+
+    <h3>Why learn it?</h3>
+    <ul>
+      <li><strong>Safety-critical systems</strong> — medical devices, automotive, aerospace all require real-time guarantees.</li>
+      <li><strong>Multi-tasking</strong> — read sensors while controlling motors while communicating — all simultaneously.</li>
+      <li><strong>Industry standard</strong> — FreeRTOS is used in millions of commercial products.</li>
+      <li><strong>Clean architecture</strong> — RTOS teaches you to design modular, interruptible, prioritized systems.</li>
+    </ul>
+
+    <h3>Prerequisites</h3>
+    <ul>
+      <li>Embedded systems (STM32 or ESP32 experience)</li>
+      <li>C programming (especially concurrency concepts)</li>
+      <li>Understanding of interrupts and polling</li>
+    </ul>
+
+    <h3>Recommended Resources</h3>
+    <table class="resource-table">
+      <thead><tr><th>Resource</th><th>Type</th><th>Best For</th></tr></thead>
+      <tbody>
+        <tr><td><a href="https://www.freertos.org/Documentation/02-Kernel/02-Kernel-Documentation/01-Documentation" target="_blank">FreeRTOS Official Docs</a></td><td><span class="resource-tag tag-docs">Docs</span></td><td>Definitive reference — API, concepts, and examples</td></tr>
+        <tr><td><a href="https://www.youtube.com/@ControllersTech" target="_blank">ControllersTech — RTOS Videos</a></td><td><span class="resource-tag tag-youtube">YouTube</span></td><td>STM32 + FreeRTOS tutorials — tasks, semaphores, queues</td></tr>
+        <tr><td><a href="https://www.youtube.com/@fastbitlab" target="_blank">FastBit Lab — RTOS Course</a></td><td><span class="resource-tag tag-youtube">YouTube</span></td><td>Comprehensive RTOS course with practical examples</td></tr>
+        <tr><td><a href="https://www.youtube.com/@QuantumLeaps" target="_blank">Quantum Leaps (Miro Samek)</a></td><td><span class="resource-tag tag-youtube">YouTube</span></td><td>State machines and RTOS — deep embedded design patterns</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Beginner Projects</h3>
+    <div class="project-card">
+      <div class="project-card-title">📊 Multi-Task Sensor System</div>
+      <p>Create a system where three tasks run concurrently: sensor reading (high priority), display update (medium priority), and data logging (low priority). Use semaphores to share data between tasks. Teaches RTOS task management and synchronization.</p>
+    </div>
+    <div class="project-card">
+      <div class="project-card-title">🔄 Priority-Based Motor Controller</div>
+      <p>Implement a motor control system where an emergency stop task can preempt the normal control task at any time. Demonstrates the real power of preemptive scheduling.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ═══════════════════════════════════════════
+       TOPIC 18 — FPGA
+       ═══════════════════════════════════════════ -->
+  <div class="section" id="topic-18">
+    <div class="section-header">
+      <div class="section-number">18</div>
+      <h2><span class="topic-icon">🧩</span>FPGA</h2>
+      <span class="level-badge level-advanced">Advanced</span>
+    </div>
+
+    <h3>What is it?</h3>
+    <p>An FPGA (Field-Programmable Gate Array) is an integrated circuit that you can configure after manufacturing. Unlike a microcontroller that executes instructions sequentially, an FPGA lets you build custom digital circuits in hardware — you're literally wiring up logic gates, flip-flops, and routing in parallel.</p>
+    <p>You describe hardware using HDL (Hardware Description Language) — typically <strong>Verilog</strong> or <strong>VHDL</strong>. The FPGA toolchain synthesizes your description into actual logic circuits on the chip. This is fundamentally different from software programming — you're designing hardware, not writing instructions.</p>
+
+    <h3>Why learn it?</h3>
+    <ul>
+      <li><strong>Massive parallelism</strong> — process thousands of data streams simultaneously, something CPUs can't match.</li>
+      <li><strong>Low latency</strong> — deterministic, nanosecond-level response times for critical applications.</li>
+      <li><strong>Custom hardware accelerators</strong> — accelerate specific algorithms 10-100x compared to software.</li>
+      <li><strong>High-frequency trading, radar, medical imaging</strong> — industries where speed matters most.</li>
+      <li><strong>Computer architecture</strong> — building a CPU on an FPGA teaches you computer architecture better than any textbook.</li>
+    </ul>
+
+    <h3>Prerequisites</h3>
+    <ul>
+      <li>Digital electronics (logic gates, flip-flops, state machines)</li>
+      <li>Some programming experience</li>
+      <li>Willingness to think in hardware, not software</li>
+    </ul>
+
+    <div class="callout callout-warning">
+      <div class="callout-title">⚠️ Mindset Shift</div>
+      <p>FPGA development is hardware design, not software. Everything runs in parallel by default. You need to think in terms of circuits and timing, not functions and loops. This is the hardest mental shift in this entire roadmap — but also the most rewarding.</p>
+    </div>
+
+    <h3>Recommended Resources</h3>
+    <table class="resource-table">
+      <thead><tr><th>Resource</th><th>Type</th><th>Best For</th></tr></thead>
+      <tbody>
+        <tr><td><a href="https://www.nandland.com/" target="_blank">Nandland</a></td><td><span class="resource-tag tag-free">Free Tutorial</span></td><td>Best beginner FPGA resource — from logic gates to a Go board</td></tr>
+        <tr><td><a href>https://projectf.io/" target="_blank">Project F</a></td><td><span class="resource-tag tag-free">Free Tutorial</span></td><td>Beautiful, well-organized FPGA tutorials — Verilog, graphics, CPUs</td></tr>
+        <tr><td><a href="https://www.fpga4fun.com/" target="_blank">FPGA4Fun</a></td><td><span class="resource-tag tag-free">Free Tutorial</span></td><td>Fun, project-based FPGA tutorials — audio, video, networking</td></tr>
+        <tr><td><a href="https://www.nandland.com/go-board.html" target="_blank">Nandland Go Board</a></td><td><span class="resource-tag tag-free">Hardware</span></td><td>Affordable beginner FPGA board with tutorials built in</td></tr>
+        <tr><td><a href="https://www.youtube.com/@NandlandFPGA" target="_blank">Nandland YouTube</a></td><td><span class="resource-tag tag-youtube">YouTube</span></td><td>FPGA tutorials with hardware demonstrations</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Beginner Projects</h3>
+    <div class="project-card">
+      <div class="project-card-title">✨ LED Chaser with State Machine</div>
+      <p>Build a flexible LED chaser using Verilog and a finite state machine. Start with a simple pattern, then add mode switching, speed control, and random patterns. Teaches the fundamentals of hardware description.</p>
+    </div>
+    <div class="project-card">
+      <div class="project-card-title">🧮 4-Bit ALU on FPGA</div>
+      <p>Design a 4-bit Arithmetic Logic Unit that can add, subtract, AND, OR, and XOR. Connect it to switches for input and LEDs for output. You're building a CPU component from scratch — and understanding how computers compute at the hardware level.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ═══════════════════════════════════════════
+       TOPIC 19 — AI FOR ROBOTICS
+       ═══════════════════════════════════════════ -->
+  <div class="section" id="topic-19">
+    <div class="section-header">
+      <div class="section-number">19</div>
+      <h2><span class="topic-icon">🧠</span>AI for Robotics</h2>
+      <span class="level-badge level-advanced">Advanced</span>
+    </div>
+
+    <h3>What is it?</h3>
+    <p>AI for robotics combines machine learning with robotic systems to enable perception, decision-making, and autonomous behavior that goes beyond hand-crafted rules. This includes reinforcement learning (robots learning by trial and error), deep learning for perception (understanding images and point clouds), and planning algorithms that let robots reason about their actions.</p>
+    <p>This field is rapidly evolving. Modern robots use neural networks for object detection, natural language processing for human-robot interaction, and learned policies for manipulation tasks. It's where cutting-edge AI research meets real-world physical systems.</p>
+
+    <h3>Why learn it?</h3>
+    <ul>
+      <li><strong>Autonomous vehicles</strong> — self-driving cars use deep learning for perception and decision-making.</li>
+      <li><strong>Manipulation</strong> — robots that can pick up arbitrary objects need AI-powered grasp planning.</li>
+      <li><strong>Search and rescue</strong> — robots that navigate disaster zones need adaptive, intelligent behavior.</li>
+      <li><strong>Future-proofing</strong> — AI is transforming every field of robotics, and the demand for talent is exploding.</li>
+    </ul>
+
+    <h3>Prerequisites</h3>
+    <ul>
+      <li>Python programming</li>
+      <li>ROS 2 basics</li>
+      <li>Computer vision fundamentals</li>
+      <li>Linear algebra and basic statistics (for ML)</li>
+    </ul>
+
+    <h3>Recommended Resources</h3>
+    <table class="resource-table">
+      <thead><tr><th>Resource</th><th>Type</th><th>Best For</th></tr></thead>
+      <tbody>
+        <tr><td><a href="https://cs231n.stanford.edu/" target="_blank">Stanford CS231n</a></td><td><span class="resource-tag tag-course">Course</span></td><td>Deep learning for vision — foundational for robot perception</td></tr>
+        <tr><td><a href="https://course.fast.ai/" target="_blank">fast.ai</a></td><td><span class="resource-tag tag-course">Course</span></td><td>Practical deep learning — project-based, top-down approach</td></tr>
+        <tr><td><a href="https://www.youtube.com/@ArticulatedRobotics" target="_blank">Articulated Robotics — AI</a></td><td><span class="resource-tag tag-youtube">YouTube</span></td><td>Practical ML integration in robot systems</td></tr>
+        <tr><td><a href="https://spinningup.openai.com/" target="_blank">OpenAI Spinning Up</a></td><td><span class="resource-tag tag-free">Free Tutorial</span></td><td>Reinforcement learning for robotics — theory + implementation</td></tr>
+        <tr><td><a href="https://huggingface.co/robotics" target="_blank">Hugging Face Robotics</a></td><td><span class="resource-tag tag-free">Free Tutorial</span></td><td>Pre-trained models and tools for robot learning</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Beginner Projects</h3>
+    <div class="project-card">
+      <div class="project-card-title">✋ Gesture Recognition System</div>
+      <p>Use a webcam and MediaPipe to recognize hand gestures in real time and map them to robot commands (open/close gripper, move arm). Combines computer vision, ML inference, and robot control.</p>
+    </div>
+    <div class="project-card">
+      <div class="project-card-title">🏎️ Self-Driving RC Car</div>
+      <p>Train a neural network to drive an RC car using end-to-end learning — camera input directly to steering commands. Start with Donkey Car (a popular framework) and graduate to custom architectures. The perfect blend of AI and embedded systems.</p>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════
+     LEARNING TRACKS
+     ═══════════════════════════════════════════ -->
+<div class="wide-container" id="tracks">
+  <div class="section">
+    <div class="section-header">
+      <h2>🛤️ Which Path Should I Choose?</h2>
+    </div>
+    <p>You don't have to follow every topic in order. Pick a track that matches your interest, and go deep. Each track shares foundational topics at the top, then branches into specializations.</p>
+
+    <div class="callout callout-info">
+      <div class="callout-title">💡 How to Use This</div>
+      <p>Start with the common foundation (Analog, Digital, C, Embedded). Then choose one or two tracks that excite you. You can always come back and explore other paths later — the fundamentals transfer.</p>
+    </div>
+
+    <div class="track-card">
+      <h3>🔧 Embedded Systems Engineer</h3>
+      <p class="track-desc">Build firmware for devices that power the world — from medical implants to automotive ECUs.</p>
+      <div class="track-steps">
+        <span class="track-step">Analog Electronics</span>
+        <span class="track-arrow">→</span>
+        <span class="track-step">Digital Electronics</span>
+        <span class="track-arrow">→</span>
+        <span class="track-step">Programming in C</span>
+        <span class="track-arrow">→</span>
+        <span class="track-step">Embedded Systems</span>
+        <span class="track-arrow">→</span>
+        <span class="track-step">STM32</span>
+        <span class="track-arrow">→</span>
+        <span class="track-step">Communication Protocols</span>
+        <span class="track-arrow">→</span>
+        <span class="track-step">RTOS</span>
+        <span class="track-arrow">→</span>
+        <span class="track-step">PCB Design</span>
+      </div>
+    </div>
+
+    <div class="track-card">
+      <h3>🤖 Robotics Engineer</h3>
+      <p class="track-desc">Build autonomous machines that sense, think, and act in the real world.</p>
+      <div class="track-steps">
+        <span class="track-step">Analog Electronics</span>
+        <span class="track-arrow">→</span>
+        <span class="track-step">Embedded Systems</span>
+        <span class="track-arrow">→</span>
+        <span class="track-step">Sensors</span>
+        <span class="track-arrow">→</span>
+        <span class="track-step">Motor Control</span>
+        <span class="track-arrow">→</span>
+        <span class="track-step">Control Systems</span>
+        <span class="track-arrow">→</span>
+        <span class="track-step">Robotics</span>
+        <span class="track-arrow">→</span>
+        <span class="track-step">ROS 2</span>
+        <span class="track-arrow">→</span>
+        <span class="track-step">Computer Vision</span>
+      </div>
+    </div>
+
+    <div class="track-card">
+      <h3>📐 Hardware Engineer</h3>
+      <p class="track-desc">Design the circuit boards and power systems that make products possible.</p>
+      <div class="track-steps">
+        <span class="track-step">Analog Electronics</span>
+        <span class="track-arrow">→</span>
+        <span class="track-step">Digital Electronics</span>
+        <span class="track-arrow">→</span>
+        <span class="track-step">Power Electronics</span>
+        <span class="track-arrow">→</span>
+        <span class="track-step">PCB Design</span>
+        <span class="track-arrow">→</span>
+        <span class="track-step">Signal Integrity</span>
+      </div>
+    </div>
+
+    <div class="track-card">
+      <h3>🧩 FPGA Engineer</h3>
+      <p class="track-desc">Design custom hardware — build processors, accelerators, and parallel systems.</p>
+      <div class="track-steps">
+        <span class="track-step">Digital Electronics</span>
+        <span class="track-arrow">→</span>
+        <span class="track-step">Programming in C</span>
+        <span class="track-arrow">→</span>
+        <span class="track-step">FPGA (Verilog)</span>
+        <span class="track-arrow">→</span>
+        <span class="track-step">Computer Architecture</span>
+      </div>
+    </div>
+
+    <div class="track-card">
+      <h3>🧠 AI & Vision Engineer</h3>
+      <p class="track-desc">Teach machines to see, understand, and make intelligent decisions.</p>
+      <div class="track-steps">
+        <span class="track-step">Programming in C</span>
+        <span class="track-arrow">→</span>
+        <span class="track-step">Python</span>
+        <span class="track-arrow">→</span>
+        <span class="track-step">Computer Vision</span>
+        <span class="track-arrow">→</span>
+        <span class="track-step">ROS 2</span>
+        <span class="track-arrow">→</span>
+        <span class="track-step">Machine Learning</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════
+     HALL OF FAME
+     ═══════════════════════════════════════════ -->
+<div class="wide-container" id="hall-of-fame">
+  <div class="section">
+    <div class="section-header">
+      <h2>★ Engineering Resources Everyone Should Know</h2>
+    </div>
+    <p>These are the channels, sites, and tools that the community consistently recommends. If you bookmark nothing else, bookmark these.</p>
+
+    <div class="hof-category">
+      <h3>⚡ Electronics & Hardware</h3>
+      <div class="hof-grid">
+        <a href="https://www.youtube.com/@phils lab" target="_blank" class="hof-card">
+          <div class="hof-card-name">Phil's Lab</div>
+          <div class="hof-card-desc">PCB design, power supplies, analog circuits. Calm, thorough, and deeply practical.</div>
+          <div class="hof-card-tag">📺 YouTube · PCB Design · Analog</div>
+        </a>
+        <a href="https://www.youtube.com/@EEVblog" target="_blank" class="hof-card">
+          <div class="hof-card-name">EEVblog</div>
+          <div class="hof-card-desc">Dave Jones. The godfather of electronics YouTube. Teardowns, reviews, and deep dives.</div>
+          <div class="hof-card-tag">📺 YouTube · General · Teardowns</div>
+        </a>
+        <a href="https://www.youtube.com/@greatscottlab" target="_blank" class="hof-card">
+          <div class="hof-card-name">GreatScott!</div>
+          <div class="hof-card-desc">DIY electronics projects. Makes complex topics accessible and fun.</div>
+          <div class="hof-card-tag">📺 YouTube · Projects · Tutorials</div>
+        </a>
+        <a href="https://www.youtube.com/@AllAboutElectronics" target="_blank" class="hof-card">
+          <div class="hof-card-name">All About Electronics</div>
+          <div class="hof-card-desc">Clean, structured explanations of electronics fundamentals. Great for studying.</div>
+          <div class="hof-card-tag">📺 YouTube · Theory · Fundamentals</div>
+        </a>
+        <a href="https://www.youtube.com/@robertferanec" target="_blank" class="hof-card">
+          <div class="hof-card-name">Robert Feranec</div>
+          <div class="hof-card-desc">Professional PCB design. High-speed, signal integrity, and industry practices.</div>
+          <div class="hof-card-tag">📺 YouTube · Advanced PCB</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="hof-category">
+      <h3>🔧 Embedded Systems</h3>
+      <div class="hof-grid">
+        <a href="https://www.youtube.com/@ControllersTech" target="_blank" class="hof-card">
+          <div class="hof-card-name">ControllersTech</div>
+          <div class="hof-card-desc">STM32 and embedded tutorials. The best channel for learning modern microcontrollers.</div>
+          <div class="hof-card-tag">📺 YouTube · STM32 · HAL</div>
+        </a>
+        <a href="https://www.youtube.com/@DroneBotWorkshop" target="_blank" class="hof-card">
+          <div class="hof-card-name">DroneBot Workshop</div>
+          <div class="hof-card-desc">Arduino and ESP32 projects with excellent explanations and real builds.</div>
+          <div class="hof-card-tag">📺 YouTube · Arduino · ESP32</div>
+        </a>
+        <a href="https://www.youtube.com/@AndreasSpiess" target="_blank" class="hof-card">
+          <div class="hof-card-name">Andreas Spiess</div>
+          <div class="hof-card-desc">Concise ESP32 and sensor tutorials. "The guy with the Swiss accent."</div>
+          <div class="hof-card-tag">📺 YouTube · ESP32 · Sensors</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="hof-category">
+      <h3>💻 Programming</h3>
+      <div class="hof-grid">
+        <a href="https://www.youtube.com/@freeCodeCamp" target="_blank" class="hof-card">
+          <div class="hof-card-name">freeCodeCamp</div>
+          <div class="hof-card-desc">Free, comprehensive courses on C, Python, and more. Project-based learning.</div>
+          <div class="hof-card-tag">📺 YouTube · Courses · Free</div>
+        </a>
+        <a href="https://www.youtube.com/@coreyms" target="_blank" class="hof-card">
+          <div class="hof-card-name">Corey Schafer</div>
+          <div class="hof-card-desc">Python tutorials that are clear, thorough, and widely recommended.</div>
+          <div class="hof-card-tag">📺 YouTube · Python · Beginner</div>
+        </a>
+        <a href="https://beej.us/guide/bgc/" target="_blank" class="hof-card">
+          <div class="hof-card-name">Beej's Guide to C</div>
+          <div class="hof-card-desc">The best free C tutorial. Conversational, complete, and genuinely enjoyable to read.</div>
+          <div class="hof-card-tag">📘 Free Book · C · Comprehensive</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="hof-category">
+      <h3>🤖 Robotics</h3>
+      <div class="hof-grid">
+        <a href="https://www.youtube.com/@ArticulatedRobotics" target="_blank" class="hof-card">
+          <div class="hof-card-name">Articulated Robotics</div>
+          <div class="hof-card-desc">Practical robotics projects. Great explanations of robot systems and ROS.</div>
+          <div class="hof-card-tag">📺 YouTube · Robotics · ROS</div>
+        </a>
+        <a href="https://www.youtube.com/@JamesBruton" target="_blank" class="hof-card">
+          <div class="hof-card-name">James Bruton</div>
+          <div class="hof-card-desc">Advanced robot builds — quadrupeds, arms, custom controllers. Inspiring engineering.</div>
+          <div class="hof-card-tag">📺 YouTube · Builds · Advanced</div>
+        </a>
+        <a href="https://automaticaddison.com/" target="_blank" class="hof-card">
+          <div class="hof-card-name">AutomaticAddison</div>
+          <div class="hof-card-desc">ROS and robotics tutorials. Detailed, step-by-step, beginner-friendly.</div>
+          <div class="hof-card-tag">🌐 Blog · ROS · Tutorials</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="hof-category">
+      <h3>🧩 FPGA</h3>
+      <div class="hof-grid">
+        <a href="https://www.nandland.com/" target="_blank" class="hof-card">
+          <div class="hof-card-name">Nandland</div>
+          <div class="hof-card-desc">Best beginner FPGA resource. From NAND gates to a complete Go board.</div>
+          <div class="hof-card-tag">🌐 Website · FPGA · Beginner</div>
+        </a>
+        <a href="https://projectf.io/" target="_blank" class="hof-card">
+          <div class="hof-card-name">Project F</div>
+          <div class="hof-card-desc">Beautifully organized FPGA tutorials. Graphics, CPUs, and peripherals.</div>
+          <div class="hof-card-tag">🌐 Website · FPGA · Projects</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="hof-category">
+      <h3>🎛️ Control Systems</h3>
+      <div class="hof-grid">
+        <a href="https://www.youtube.com/@BrianDouglas" target="_blank" class="hof-card">
+          <div class="hof-card-name">Brian Douglas</div>
+          <div class="hof-card-desc">The best control systems channel. Visual, intuitive, and thorough explanations.</div>
+          <div class="hof-card-tag">📺 YouTube · Control · Theory</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="hof-category">
+      <h3>📷 Computer Vision</h3>
+      <div class="hof-grid">
+        <a href="https://docs.opencv.org/" target="_blank" class="hof-card">
+          <div class="hof-card-name">OpenCV</div>
+          <div class="hof-card-desc">The foundational CV library. Official docs and tutorials for every platform.</div>
+          <div class="hof-card-tag">🌐 Docs · Library · Industry Standard</div>
+        </a>
+        <a href="https://www.youtube.com/@maboroshistudios" target="_blank" class="hof-card">
+          <div class="hof-card-name">Murtaza's Workshop</div>
+          <div class="hof-card-desc">Practical OpenCV projects. Face detection, object tracking, and more.</div>
+          <div class="hof-card-tag">📺 YouTube · OpenCV · Projects</div>
+        </a>
+        <a href="https://www.youtube.com/@ComputerVisionEngineer" target="_blank" class="hof-card">
+          <div class="hof-card-name">Computer Vision Engineer</div>
+          <div class="hof-card-desc">Professional CV topics. Detection, tracking, and deep learning integration.</div>
+          <div class="hof-card-tag">📺 YouTube · CV · ML</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="hof-category">
+      <h3>🐧 Linux</h3>
+      <div class="hof-grid">
+        <a href="https://www.youtube.com/@LearnLinuxTV" target="_blank" class="hof-card">
+          <div class="hof-card-name">LearnLinuxTV</div>
+          <div class="hof-card-desc">The best Linux channel. Commands, system admin, embedded, and Raspberry Pi.</div>
+          <div class="hof-card-tag">📺 YouTube · Linux · Admin</div>
+        </a>
+        <a href="https://ubuntu.com/tutorials" target="_blank" class="hof-card">
+          <div class="hof-card-name">Ubuntu Documentation</div>
+          <div class="hof-card-desc">Official Ubuntu guides. Setup, networking, packages, and server administration.</div>
+          <div class="hof-card-tag">🌐 Docs · Ubuntu · Official</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════
+     ADDITIONAL RESOURCES
+     ═══════════════════════════════════════════ -->
+<div class="wide-container" id="additional">
+  <div class="section">
+    <div class="section-header">
+      <h2>📚 Additional Resources</h2>
+    </div>
+    <p>Useful websites, documentation, and learning platforms across all topics.</p>
+
+    <table class="resource-table">
+      <thead><tr><th>Resource</th><th>Category</th><th>What It's Good For</th></tr></thead>
+      <tbody>
+        <tr><td><a href="https://learn.sparkfun.com/" target="_blank">SparkFun Learn</a></td><td>General</td><td>Excellent beginner tutorials for sensors, components, and Arduino projects</td></tr>
+        <tr><td><a href="https://learn.adafruit.com/" target="_blank">Adafruit Learn</a></td><td>General</td><td>Beautiful tutorials covering sensors, displays, IoT, and wearable electronics</td></tr>
+        <tr><td><a href="https://www.digikey.com/en/resources" target="_blank">DigiKey Articles</a></td><td>Components</td><td>Component selection guides, design articles, and engineering resources</td></tr>
+        <tr><td><a href="https://www.ti.com/precisionlabs" target="_blank">TI Precision Labs</a></td><td>Electronics</td><td>Professional-grade analog and power electronics training (free)</td></tr>
+        <tr><td><a href="https://www.analog.com/en/resources/technical-tutorials.html" target="_blank">Analog Devices Tutorials</a></td><td>Electronics</td><td>Expert tutorials on analog, mixed-signal, and RF design</td></tr>
+        <tr><td><a href="https://www.st.com/en/embedded-software.html" target="_blank">STMicroelectronics Learning</a></td><td>Embedded</td><td>STM32 training, CubeMX tutorials, application notes</td></tr>
+        <tr><td><a href="https://microchip.com/training" target="_blank">Microchip University</a></td><td>Embedded</td><td>PIC and AVR microcontroller courses and design examples</td></tr>
+        <tr><td><a href="https://hackaday.com/" target="_blank">Hackaday</a></td><td>General</td><td>Latest projects, teardowns, and engineering news from the community</td></tr>
+        <tr><td><a href="https://circuitverse.org/simulator" target="_blank">CircuitVerse</a></td><td>Digital</td><td>Browser-based digital logic simulator — test circuits without hardware</td></tr>
+        <tr><td><a href="https://github.com/logisim-evolution/logisim-evolution" target="_blank">Logisim Evolution</a></td><td>Digital</td><td>Full-featured digital logic simulator with CPU design support</td></tr>
+        <tr><td><a href="https://docs.kicad.org/" target="_blank">KiCad Documentation</a></td><td>PCB</td><td>Official KiCad manual — comprehensive, well-maintained, and free</td></tr>
+        <tr><td><a href="https://docs.arduino.cc/" target="_blank">Arduino Documentation</a></td><td>Embedded</td><td>Official Arduino docs — getting started, built-in examples, libraries</td></tr>
+        <tr><td><a href="https://docs.ros.org/" target="_blank">ROS Documentation</a></td><td>Robotics</td><td>Official ROS and ROS 2 documentation — packages, tutorials, and API</td></tr>
+        <tr><td><a href="https://docs.opencv.org/" target="_blank">OpenCV Documentation</a></td><td>CV</td><td>Official OpenCV docs — tutorials for Python, C++, and Java</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     FOOTER
+     ═══════════════════════════════════════════ -->
+<footer class="footer">
+  <p><strong>The Circuit Navigator</strong> — A Student's Roadmap to Electronics & Robotics</p>
+  <p>Built with <span class="heart">♥</span> by students, for students.</p>
+  <p style="margin-top: 12px; font-size: 0.8rem; color: #94a3b8;">
+    Every resource listed here was chosen intentionally. If something's on this page, it's because the engineering community genuinely recommends it.<br>
+    Found an error or want to suggest a resource? Reach out to the ASME BITS Pilani student section.
+  </p>
+</footer>
+
+<!-- Back to Top Button -->
+<button class="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">↑</button>
+
+</body>
+</html>
